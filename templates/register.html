@@ -3,19 +3,43 @@
 <head>
     <title>Bence Template</title>
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="css/jquery.circliful.css"/>
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.circliful.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+
+            $("#test-circle").circliful({
+                animationStep: 5,
+                foregroundBorderWidth: 10,
+                backgroundBorderWidth: 10,
+                percent: 82,
+                foregroundColor: '#9A1A31'
+            });
+
+            $("#test-circle-2").circliful({
+                animationStep: 5,
+                foregroundBorderWidth: 10,
+                backgroundBorderWidth: 10,
+                percent: 23,
+                foregroundColor: '#9A1A31'
+            });
+        });
+    </script>
 </head>
 <body>
 <header>
     <div class="container">
         <div id="logo" class="col-md-6">
-            <h1>Bence <small>Rewards</small></h1>
+            <h1>Bence
+                <small>Rewards</small>
+            </h1>
         </div>
         <div class="col-md-6">
             <div class="contact">
-                Felephone
+                <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 078875 98721 <span class="glyphicon glyphicon-envelope"></span> adrian@michelangelo.cat
             </div>
             <div class="action">
                 Login
@@ -93,15 +117,36 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="col-xs-12">
+            <div class="form-group">
+                <label for="dropdown">Dropdown Label</label>
+                <select class="form-control" id="dropdown">
+                    <option>Select a value</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <h3>Stats</h3>
+        </div>
+        <div class="col-xs-12">
+            <div id="test-circle" class="stat"></div>
+            <div id="test-circle-2" class="stat"></div>
+        </div>
     </div>
 </main>
-<footer class="container">
-        <nav class="foot">
-            <a href="#">SiteMap</a>|<a href="#">Contact Us</a>
-        </nav>
-        <div class="foot metadata">
-            &copy; Bencelating
+<footer>
+    <div class="container">
+        <div class="col-xs-12">
+            <nav class="slightly-centred-div">
+                <a href="#">SiteMap</a>|<a href="#">Contact Us</a>
+            </nav>
+            <div class="slightly-centred-div metadata">
+                &copy; Bencelating
+            </div>
         </div>
+    </div>
 </footer>
 </body>
 </html>

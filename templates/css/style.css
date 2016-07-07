@@ -53,11 +53,12 @@ header .contact .glyphicon {
 /*------------------ MAIN CONTENT ------------------*/
 
 main.shadow {
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(217,217,217,1);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(217,217,217,1);
-    box-shadow: 0px 0px 5px 0px rgba(217,217,217,1);
+    -webkit-box-shadow: 0 0 5px 0 rgba(100,100,100,1);
+    -moz-box-shadow: 0 0 5px 0 rgba(100,100,100,1);
+    box-shadow: 0 0 5px 0 rgba(100,100,100,1);
     padding-top: 20px;
     padding-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 main {
@@ -65,7 +66,8 @@ main {
     background-color: #ffffff;
 }
 
-main h2 {
+main h2,
+main h3 {
     color: #9A1A31;
     float: left;
     padding-right: 50px;
@@ -139,6 +141,22 @@ label {
 .btn-default:hover {
     background-color: #9A1A31;
     color: #adadad;
+}
+
+/*------------------ Tables */
+
+.table thead tr th {
+    border-bottom: 1px solid #9A1A31;
+    color: #9A1A31;
+}
+.table td {
+    border-bottom: 0;
+}
+
+/*------------------ Stats */
+.stat {
+    width: 200px;
+    float: left;
 }
 
 /*------------------ FOOTER ------------------*/
