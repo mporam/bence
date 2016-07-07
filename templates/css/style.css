@@ -8,11 +8,6 @@ body {
     max-width: 970px;
 }
 
-.slightly-centred-div {
-    margin: 30px 90px 20px 90px;
-    padding-bottom: 20px;
-}
-
 .row.no-pad {
     margin-left: -30px;
     margin-right: -30px;
@@ -91,8 +86,9 @@ main h2 {
     font-size: 25px;
     text-align: center;
     color: #5B5B5B;
-    margin-top: 80px;
-    margin-bottom: 80px;
+    margin-top: 90px;
+    margin-bottom: 90px;
+    padding-bottom: 20px;
 }
 
 /*------------------ Forms */
@@ -147,4 +143,9 @@ footer a {
 
 footer nav {
     border-bottom: #9A1A31 1px solid;
+}
+
+footer nav, footer .metadata {
+    margin: 30px auto 20px auto;
+    padding-bottom: 20px;
 }
