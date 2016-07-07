@@ -27,15 +27,27 @@ header {
     height: 118px;
 }
 
-header #logo h1 {
-    float: left;
-}
-
 header #logo small {
     color: inherit;
 }
 
 header .action, header .contact {
+    text-align: right;
+}
+
+header .contact{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+header .action {
+    font-size: 24px;
+    font-weight: 200;
+}
+
+header .contact .glyphicon {
+    padding-left: 10px;
 }
 
 /*------------------ MAIN CONTENT ------------------*/
