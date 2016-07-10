@@ -94,11 +94,19 @@ main {
 main h2,
 main h3 {
     color: #9A1A31;
-    float: left;
     padding-right: 50px;
     padding-bottom: 15px;
     padding-left: 5px;
+}
+
+main h2:after,
+main h3:after {
+    content: ' ';
+    display: block;
     border-bottom: 1px solid #adadad;
+    width: 120px;
+    margin-top: 10px;
+    margin-eft: -5px;
 }
 
 main b {
@@ -149,6 +157,12 @@ label {
     box-shadow: none;
 }
 
+.form-control:focus {
+    border-color: #9A1A31;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(166,29,53,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(166,29,53,.6);
+}
+
 /*------------------ Buttons */
 
 .btn {
@@ -168,8 +182,8 @@ label {
 }
 
 .btn-default:hover {
-    background-color: #9A1A31;
-    color: #adadad;
+    background-color: #30302f;
+    color: #ffffff;
 }
 
 /*------------------ Tables */
