@@ -96,16 +96,30 @@ main {
     background-color: #ffffff;
 }
 
+main h3,
+main h4,
+main h5 {
+    font-size: 24px;
+}
+
 main h2,
-main h3 {
+main h3,
+main h4,
+main h5 {
     color: #9A1A31;
     padding-right: 50px;
     padding-bottom: 15px;
     padding-left: 5px;
 }
 
+.align-right {
+    text-align: right;
+}
+
 main h2:after,
-main h3:after {
+main h3:after,
+main h4:after,
+main h5:after {
     content: ' ';
     display: block;
     border-bottom: 1px solid #adadad;

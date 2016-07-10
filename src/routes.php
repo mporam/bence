@@ -29,3 +29,8 @@ $app->post('/login', function ($request, $response, $args) {
     return $this->renderer->render($response, 'login.phtml', $args);
 
 });
+
+$app->get('/account', function ($request, $response, $args) {
+    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
+    return $this->renderer->render($response, 'account.phtml', $args);
+});
