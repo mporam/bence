@@ -7,5 +7,7 @@ $app->get('/', function ($request, $response, $args) {
 });
 
 $app->get('/login', function ($request, $response, $args) {
+    $args['breadcrumbs'] = ['/'=>'Home', '/login'=>'Login'];
+
     return $this->renderer->render($response, 'login.phtml', $args);
 });
