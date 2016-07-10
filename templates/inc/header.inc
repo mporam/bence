@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bence Template</title>
+    <title>
+        <?php
+        echo (!empty($data['title']) ? $data['title'] . ' | ': '') . 'Bence Rewards - Powered by Finders Keepers UK';
+        ?>
+    </title>
     <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="css/jquery.circliful.css"/>
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
