@@ -90,3 +90,9 @@ $app->get('/account', function ($request, $response, $args) {
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
     return $this->renderer->render($response, 'account.phtml', $args);
 });
+
+$app->get('/account/update', function ($request, $response, $args) {
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/update'=>'Update'];
+    return $this->renderer->render($response, 'user.phtml', $args);
+});
