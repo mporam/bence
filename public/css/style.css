@@ -125,7 +125,6 @@ main b {
     height: 160px;
     margin-top: 20px;
     margin-bottom: 5px;
-    padding-top: 105px;
 }
 
 .feature-box h3 {
@@ -133,6 +132,15 @@ main b {
     color: #9A1A31;
     width: 85%;
     padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: absolute;
+    bottom: 10px;
+    font-size: 20px;
+}
+
+.feature-box h3:after {
+    display: none;
 }
 
 /*------------------ Summary Text */

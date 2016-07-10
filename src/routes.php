@@ -4,6 +4,9 @@
 //     return $response->withStatus(200)->withHeader('Location', '/'); // redirect
 
 $app->get('/', function ($request, $response, $args) {
+    $promotions = new \Bence\Promotions($this->db);
+    $args['promos'] = $promotions->getPromotions(3);
+
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
