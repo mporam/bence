@@ -32,6 +32,11 @@ a:hover {
     text-decoration: underline;
 }
 
+.action a:hover, .crumb a:hover {
+    text-decoration: none;
+    color: #2E2E2C;
+}
+
 ul
 {
     list-style: none;
