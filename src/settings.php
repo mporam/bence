@@ -14,5 +14,12 @@ return [
             'name' => 'slim-app',
             'path' => __DIR__ . '/../logs/app.log',
         ],
+
+        'pdo' => [
+            'servername' => "192.168.20.56",
+            'database' => 'bence_rewards',
+            'username' => "root",
+            'password' => "",
+        ]
     ],
 ];
