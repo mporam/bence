@@ -72,4 +72,27 @@ class User
         }
         return false;
     }
+
+    public function validateReset($resetId) {
+        $result = false;
+        $query = $this->db->prepare("SELECT * FROM users WHERE `pwreset` = '$resetId'");
+        $query->execute();
+        $user = $query->fetch();
+
+        if (!empty($user)) {
+            $result = true;
+        }
+        return $result;
+    }
+
+    public function resetPassword($resetId, $password) {
+        $query = $this->db->prepare("SELECT * FROM users WHERE `pwreset` = '$resetId'");
+        $query->execute();
+        $user = $query->fetch();
+        $password = sha1($password . $user['salt']);
+        $id = $user['id'];
+
+        $query = $this->db->prepare("UPDATE users SET pwreset=null, password='$password' WHERE `id`='$id';");
+        return $query->execute();
+    }
 }
