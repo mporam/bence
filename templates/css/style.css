@@ -22,6 +22,26 @@ body {
     margin-bottom: 20px;
     border-bottom: 1px solid #9A1A31;
 }
+
+a {
+    color: #9A1A31;
+}
+
+a:hover {
+    color: #9A1A31;
+    text-decoration: underline;
+}
+
+ul
+{
+    list-style: none;
+}
+
+li {
+    background: url(../img/bullet.png) left center no-repeat;
+    padding-left: 15px;
+}
+
 /*------------------ HEADER ------------------*/
 
 header {
@@ -175,7 +195,7 @@ footer {
     color: #ffffff;
 }
 
-footer a {
+footer a, header a {
     color: #ffffff;
     padding: 0 2px 0 2px;
 }
