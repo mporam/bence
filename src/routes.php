@@ -94,5 +94,35 @@ $app->get('/account', function ($request, $response, $args) {
 $app->get('/account/update', function ($request, $response, $args) {
     $args['loggedIn'] = $_SESSION['loggedIn'];
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/update'=>'Update'];
+
+    $args['user'] = $_SESSION;
+    return $this->renderer->render($response, 'user.phtml', $args);
+});
+
+$app->post('/account/update', function ($request, $response, $args) {
+    $post = $request->getParsedBody();
+    $user = new \Bence\User($this->db);
+
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/update'=>'Update'];
+
+    if
+    (
+        empty($post['name'])
+        || empty($post['email'])
+        || empty($post['company'])
+        || empty($post['address1'])
+        || empty($post['address2'])
+        || empty($post['address3'])
+        || empty($post['postcode'])
+        || empty($post['phone'])
+    ) {
+        $args['update'] = 'incomplete';
+        $args['user'] = $_SESSION;
+        return $this->renderer->render($response, 'user.phtml', $args);
+    }
+
+    $args['update'] = $user->update($_SESSION['id'], $post);
+    $args['user'] = $_SESSION;
     return $this->renderer->render($response, 'user.phtml', $args);
 });

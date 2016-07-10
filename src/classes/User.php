@@ -95,4 +95,31 @@ class User
         $query = $this->db->prepare("UPDATE users SET pwreset=null, password='$password' WHERE `id`='$id';");
         return $query->execute();
     }
+
+    public function update($uid, $user) {
+        $name = $user['name'];
+        $email = $user['email'];
+        $company = $user['company'];
+        $address1 = $user['address1'];
+        $address2 = $user['address2'];
+        $address3 = $user['address3'];
+        $address4 = (empty($user['address4']) ? null : $user['address4']);
+        $postcode = $user['postcode'];
+        $phone = $user['phone'];
+        $mobile = (empty($user['mobile']) ? null : $user['mobile']);
+
+        $query = $this->db->prepare("UPDATE users SET `name`='$name', `email`='$email', `company`='$company',
+`address1`='$address1', `address2`='$address2', `address3`='$address3', `address4`='$address4', `postcode`='$postcode',
+`phone`='$phone', `mobile`='$mobile' WHERE `id`='$uid'; ");
+
+        $return = $query->execute();
+
+        //update session with new data
+        $query = $this->db->prepare("SELECT * FROM users LEFT JOIN regions ON users.region=regions.r_id WHERE users.id = '$uid'");
+        $query->execute();
+        $result = $query->fetch(\PDO::FETCH_ASSOC);
+        $_SESSION = array_merge($_SESSION, $result);
+
+        return $return;
+    }
 }
