@@ -47,7 +47,12 @@
                 <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 078875 98721 <span class="glyphicon glyphicon-envelope"></span> adrian@michelangelo.cat
             </div>
             <div class="action">
-                <a href="/login">Login</a>
+                <?php if (!empty($data['loggedIn'])) { ?>
+                    <a href="/login">Login</a>
+                <?php } else { ?>
+                    <a href="/account">Account</a>
+                    <a href="/logout">Logout</a>
+                <?php } ?>
             </div>
         </div>
     </div>
