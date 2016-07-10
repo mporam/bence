@@ -52,6 +52,39 @@ $app->get('/logout', function ($request, $response, $args) {
     return $response->withStatus(200)->withHeader('Location', '/');
 });
 
+$app->get('/login/reset', function ($request, $response, $args) {
+    $get = $request->getQueryParams();
+    $user = new \Bence\User($this->db);
+    if (!empty($get['user'])) {
+        $args['user'] = false;
+        if ($user->validateReset($get['user'])) {
+            $args['user'] = $get['user'];
+        }
+    }
+    return $this->renderer->render($response, 'loginReset.phtml', $args);
+});
+
+$app->post('/login/reset', function ($request, $response, $args) {
+    $post = $request->getParsedBody();
+    $get = $request->getQueryParams();
+    $user = new Bence\User($this->db);
+
+    if (!empty($post['email']) && empty($get['user'])) {
+        require __DIR__ . "/passwordreset.php";
+        return $this->renderer->render($response, 'loginReset.phtml', $args);
+    }
+
+    if (!empty($get['user']) && !empty($post['password'])) {
+        if ($user->resetPassword($get['user'], $post['password'])) {
+            $args['breadcrumbs'] = ['/' => 'Home', '/login' => 'Login'];
+            $args['loginReset'] = true;
+            return $this->renderer->render($response, 'login.phtml', $args);
+        }
+    }
+
+    return $this->renderer->render($response, 'loginReset.phtml', $args);
+});
+
 $app->get('/account', function ($request, $response, $args) {
     $args['loggedIn'] = $_SESSION['loggedIn'];
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
