@@ -6,13 +6,13 @@
         echo (!empty($data['title']) ? $data['title'] . ' | ': '') . 'Bence Rewards - Powered by Finders Keepers UK';
         ?>
     </title>
-    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link type="text/css" rel="stylesheet" href="css/jquery.circliful.css"/>
-    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/jquery.circliful.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
     <link href='https://fonts.googleapis.com/css?family=PT+Sans+Narrow:700,400|Roboto:300' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/jquery.circliful.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.circliful.min.js"></script>
     <script>
         $( document ).ready(function() {
 
