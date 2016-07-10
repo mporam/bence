@@ -16,7 +16,7 @@ $app->get('/login', function ($request, $response, $args) {
         return $response->withStatus(200)->withHeader('Location', '/account');
     }
 
-    $args['breadcrumbs'] = ['/'=>'Home', '/login'=>'Login'];
+    $args['breadcrumbs'] = ['/' => 'Home', '/login' => 'Login'];
     return $this->renderer->render($response, 'login.phtml', $args);
 });
 
@@ -37,7 +37,7 @@ $app->post('/login', function ($request, $response, $args) {
         return $response->withStatus(200)->withHeader('Location', '/account');
     }
 
-    $args['breadcrumbs'] = ['/'=>'Home', '/login'=>'Login'];
+    $args['breadcrumbs'] = ['/' => 'Home', '/login' => 'Login'];
     $args['login'] = false;
     return $this->renderer->render($response, 'login.phtml', $args);
 
@@ -54,6 +54,35 @@ $app->get('/logout', function ($request, $response, $args) {
 
 $app->get('/account', function ($request, $response, $args) {
     $args['loggedIn'] = $_SESSION['loggedIn'];
-    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
+    $args['breadcrumbs'] = ['/' => 'Home', '/account' => 'Account'];
     return $this->renderer->render($response, 'account.phtml', $args);
 });
+
+$app->get('/account/notifications', function ($request, $response, $args) {
+    $args['breadcrumbs'] = ['/' => 'Home', '/account' => 'Account', '/account/notifications' => 'Notifications'];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'notifications.phtml', $args);
+});
+
+$app->post('/account/notifications/email', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/notifications' => 'Notifications',
+        '/account/notifications/email' => 'Email'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'email.phtml', $args);
+});
+
+$app->post('/account/notifications/send', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/notifications' => 'Notifications',
+        '/account/notifications/send' => 'Sending Emails'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'send.phtml', $args);
+});
+
