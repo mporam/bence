@@ -8,6 +8,11 @@ $app->get('/', function ($request, $response, $args) {
 });
 
 $app->get('/login', function ($request, $response, $args) {
+    $user = new \Bence\User($this->db);
+    if ($user->attemptLogin()) {
+        return $response->withStatus(200)->withHeader('Location', '/account');
+    }
+
     $args['breadcrumbs'] = ['/'=>'Home', '/login'=>'Login'];
     return $this->renderer->render($response, 'login.phtml', $args);
 });
@@ -17,11 +22,16 @@ $app->post('/login', function ($request, $response, $args) {
     $data = $request->getParsedBody();
     $email = filter_var($data['email'], FILTER_SANITIZE_STRING);
     $password = $data['password'];
-    $user = new \Bence\User();
-    $loggedIn = $user->login($email, $password);
+    $remember = false;
+    if (!empty($data['remember'])) {
+        $remember = $data['remember'];
+    }
+
+    $user = new \Bence\User($this->db);
+    $loggedIn = $user->login($email, $password, $remember);
 
     if ($loggedIn) {
-        return $this->renderer->render($response, 'login.phtml', $args);
+        return $response->withStatus(200)->withHeader('Location', '/account');
     }
 
     $args['breadcrumbs'] = ['/'=>'Home', '/login'=>'Login'];
