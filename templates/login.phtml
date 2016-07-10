@@ -1,0 +1,39 @@
+<?php require __DIR__ . '/inc/header.phtml'; ?>
+
+<main class="shadow container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="bottom-border">
+                Breadcrumbs
+                <div class="pull-right">< Back</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <form action="/login" mathod="post">
+            <div class="col-md-6">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
+                <button type="submit" class="btn btn-default">Login</button>
+            </div>
+            <div class="col-md-6">
+                <h2>Forgotten Your Password?</h2>
+                <p>Forgotten your password? Click here to send a password reset email.</p>
+            </div>
+
+            <div class="col-md-6">
+                <h2>Still can't log in?</h2>
+                <p>If your still unable to log in to your account, please contact us at info@bencerewards.co.uk</p>
+            </div>
+        </form>
+    </div>
+</main>
+
+<?php require __DIR__ . '/inc/footer.phtml'; ?>
