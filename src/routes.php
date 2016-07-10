@@ -43,7 +43,17 @@ $app->post('/login', function ($request, $response, $args) {
 
 });
 
+$app->get('/logout', function ($request, $response, $args) {
+    $_SESSION['loggedIn'] = false; // just in case
+    $_SESSION = [];
+    setcookie(\Bence\User::COOKIENAME);
+    unset($_COOKIE[\Bence\User::COOKIENAME]); // they are 100% logged out now!
+
+    return $response->withStatus(200)->withHeader('Location', '/');
+});
+
 $app->get('/account', function ($request, $response, $args) {
+    $args['loggedIn'] = $_SESSION['loggedIn'];
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
     return $this->renderer->render($response, 'account.phtml', $args);
 });

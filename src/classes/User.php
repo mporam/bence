@@ -67,6 +67,7 @@ class User
 
         if (!empty($user)) {
             $_SESSION = $user;
+            $_SESSION['loggedIn'] = true;
             return true;
         }
         return false;
