@@ -28,14 +28,21 @@
 <body>
 <header>
     <div class="container">
-        <div id="logo" class="col-md-6">
+        <div id="logo" class="col-xs-6">
             <h1>Bence
                 <small>Rewards</small>
             </h1>
         </div>
-        <div class="col-md-6">
+        <div class="col-xs-6">
             <div class="contact">
-                <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 078875 98721 <span class="glyphicon glyphicon-envelope"></span> adrian@michelangelo.cat
+                <a href="tel:078875 98721">
+                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                    <span class="hidden-sm hidden-xs">078875 98721</span>
+                </a>
+                <a href="mailto:">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                    <span class="hidden-sm hidden-xs">adrian@michelangelo.cat</span>
+                </a>
             </div>
             <div class="action">
                 <?php if (empty($data['loggedIn'])) { ?>
