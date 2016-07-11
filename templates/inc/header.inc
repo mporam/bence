@@ -15,15 +15,6 @@
     <script type="text/javascript" src="/js/jquery.circliful.min.js"></script>
     <script>
         $( document ).ready(function() {
-
-            $("#test-circle").circliful({
-                animationStep: 5,
-                foregroundBorderWidth: 10,
-                backgroundBorderWidth: 10,
-                percent: 82,
-                foregroundColor: '#9A1A31'
-            });
-
             $("#test-circle-2").circliful({
                 animationStep: 5,
                 foregroundBorderWidth: 10,

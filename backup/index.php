@@ -1,315 +1,241 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/sql/db_con.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/account/verify.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/class/breadcrumbs.class.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/class/account.class.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/userPermissions.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/includes/class/stat.class.php');
+
+$account = new Account();
+
+$stat = new Stat($con);
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+<title>BSS Reward Scheme 2014 | Powered by Finders Keepers Ltd</title>
 <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<meta name="description" content="BSS Promotions and Reward Scheme" />
-<meta name="keywords" content="BSS poromtions, www.bss-promotions.co.uk," />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
 <meta name="author" content="Finders Keepers Ltd" />
-<link rel="stylesheet" type="text/css" href="/css/style.css" title="1024px style" media="screen,projection" />
-<title>BSS Promotions | Powered by Finders Keepers Ltd</title>
-<style type="text/css">
 
-#gmap {display:block; width:750px; height:778px; background:url(images/regions-new/new-map.jpg); position:relative; margin:0 auto 2em auto;}
-#gmap a {color:#000; font-family:arial, sans-serif; font-size:11px; font-weight:bold;}
+<link rel="stylesheet" type="text/css" href="/css/style.css"  />
 
-a#title2, a#title2:visited {
-	display:block;
-	width:750px;
-	height:778px;
+<link rel="stylesheet" href="/css/lytebox.css" type="text/css" media="screen" /> 
+<script type="text/javascript" language="javascript" src="/css/lytebox.js"></script> 
+<script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery.knob.js" type="text/javascript"></script>
+<script src="/js/jquery.leanModal.min.js" type="text/javascript"></script>
 
-	position:absolute;
-	left:0;
-	top:0;
-	cursor:default;
-	text-decoration:none;
-}
-* html a#title2 {height:260px; he\ight:0;}
-#gmap a#title2:hover {background:transparent url(images/#) no-repeat 0 0; overflow:visible; color:#c00;}
 
-a#nancy {
-	display:block;
-	width:143px;
-	height:59px;
-	padding-top:0px;
-	overflow:hidden;
-	position:absolute;
-	left:235px;
-	top:513px;
-}
-* html a#nancy {height:120px; he\ight:0;}
-a#nancy:hover {background:transparent url(images/regions-new/south-wales.gif) no-repeat 0 0; overflow:visible;}
+<link rel="stylesheet" href="/themes/light/light.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/css/nivo-slider.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/js/jquery.nivo.slider.js"></script>
 
-a#dave {
-	display:block;
-	width:191px;
-	height:83px;
-	padding-top:0px;
-	overflow:hidden;
-	position:absolute;
-	left:149px;
-	top:461px;
-}
-* html a#dave {height:120px; he\ight:0;}
-a#dave:hover {background:transparent url(images/regions-new/west-wales.gif) no-repeat 0 0; overflow:visible;}
 
-a#ros {
-	display:block;
-	width:165px;
-	height:194px;
-	padding-top:0px;
-	overflow:hidden;
-	position:absolute;
-	left:203px;
-	top:303px;
-}
-* html a#ros {height:120px; he\ight:0;}
-a#ros:hover {background:transparent url(images/regions-new/mid-north-wales.gif) no-repeat 0 0; overflow:visible;}
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<script>
 
-a#betty {
-	display:block;
-	width:183px;
-	height:92px;
-	overflow:hidden;
-	position:absolute;
-	left:351px;
-	top:581px;
-}
-* html a#betty {height:130px; he\ight:0;}
-a#betty:hover {background:transparent url(images/regions-new/bournemouth.gif) no-repeat  0 0; overflow:visible;}
+    $(function() {
+		$("a[rel*=leanModal]").leanModal({ closeButton: ".modal_close" });
+        $(".dial").knob({
+			draw: function () {
+				$(this.i).val(this.cv + '%') //Puts a percent after values
+			}
+		});
+    });
+	
+	function nivoslider(nivoclass) {
+		$(nivoclass).nivoSlider({
+			effect:'fade',
+			animSpeed:200,
+			pauseTime:3000,
+			directionNav:true, //Next & Prev
+			controlNav:false, //1,2,3...
+			pauseOnHover:true, //Stop animation while hovering
+		});
+	}
+	
+</script>
 
-a#andy {
-	display:block;
-	width:136px;
-	height:118px;
-	overflow:hidden;
-	position:absolute;
-	left:451px;
-	top:458px;
-}
-* html a#andy {height:105px; he\ight:0;}
-a#andy:hover {background:transparent url(images/regions-new/oxfordshire-buckinghamshire.gif) no-repeat 0 0; overflow:visible;}
-
-a#mike {
-	display:block;
-	width:192px;
-	height:66px;
-	padding-top:55px;
-	overflow:hidden;
-	position:absolute;
-	left:236px;
-	top:581px;
-}
-* html a#mike {height:55px; he\ight:0;}
-a#mike:hover {background:transparent url(images/regions-new/devon-somerset-dorset.gif) no-repeat 0 0; overflow:visible;}
-
-a#sandy {
-	display:block;
-	width:203px;
-	height:89px;
-	padding-top:55px;
-	overflow:hidden;
-	position:absolute;
-	left:104px;
-	top:626px;
-}
-* html a#sandy {height:55px; he\ight:0;}
-a#sandy:hover {background:transparent url(images/regions-new/cornwall.gif) no-repeat 0 0; overflow:visible;}
-
-a#phil {
-	display:block;
-	width:128px;
-	height:73px;
-	padding-top:0px;
-	overflow:hidden;
-	position:absolute;
-	left:350px;
-	top:536px;
-}
-* html a#phil {height:100px; he\ight:0;}
-a#phil:hover {background:transparent url(images/regions-new/bristol-wiltshire.gif) no-repeat 0 0; overflow:visible;}
-
-a#bob {
-	display:block;
-	width:119px;
-	height:113px;
-	overflow:hidden;
-	position:absolute;
-	left:355px;
-	top:331px;
-}
-* html a#bob {height:120px; he\ight:0;}
-a#bob:hover {background:transparent url(images/regions-new/shropshire-midlands.gif) no-repeat 0 0; overflow:visible;}
-
-a#jill {
-	display:block;
-	width:124px;
-	height:105px;
-	overflow:hidden;
-	position:absolute;
-	left:418px;
-	top:395px;
-}
-* html a#jill {height:105px; he\ight:0;}
-a#jill:hover {background:transparent url(images/regions-new/birmingham-coventry.gif) no-repeat 0 0; overflow:visible;}
-
-a#tom {
-	display:block;
-	width:124px;
-	height:122px;
-	overflow:hidden;
-	position:absolute;
-	left:331px;
-	top:423px;
-}
-* html a#tom {height:50px; he\ight:0;}
-a#tom:hover {background:transparent url(images/regions-new/glouc-hereford-worcester.gif) no-repeat 0 0; overflow:visible;}
-
-a#bill {
-	display:block;
-	width:320px;
-	height:370px;
-	overflow:hidden;
-	position:absolute;
-	left:296px;
-	top:29px;
-}
-
-.home-link a {
-	color: #FFF;
-}
-/** html a#bill {height:50px; he\ight:0;}
-a#bill:hover {background:transparent url(images/regions-new/north.gif) no-repeat 0 0; overflow:visible;}*/
-</style>
-<script src="../Scripts/swfobject_modified.js" type="text/javascript"></script>
 </head>
-
 <body>
 <div id="wrap">
-
 <div id="header">
-<p id="toplinks">
-<?php
-    session_start();
-    echo (empty($_SESSION['accNo'])) ? "<a href='/login/'>Login</a>&nbsp;&nbsp;&nbsp;" : "<a href='/account/'>Account</a> | <a href='/account/logout.php'>Logout</a>&nbsp;&nbsp;&nbsp;";
-?></p>
+<p id="toplinks"><a href="/account/logout.php">Logout</a></p>
 <h1>&nbsp;</h1>
-<p id="slogan" style="text-align: right; color: #FFF;">Tel: <span style="color: #FFFFFF;"> 0117 9527740 </span><BR /><strong>Email: </strong><a class="home-link" href="mailto: info@bss-promotions.co.uk">info@bss-promotions.co.uk</a></p>
+<p id="slogan" style="text-align: right; color: #FFF;">Tel: <span style="color: #FFFFFF;"> 0117 9527740 </span><BR /><strong>Email: </strong><a href="mailto: info@bss-promotions.co.uk">info@bss-promotions.co.uk</a></p>
 </div>
+
+
 
 <div id="content">
-  <table width="100%" border="0" cellpadding="5" cellspacing="5">
-    <tr>
-      <td width="63%"><object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="467" height="182">
-        <param name="movie" value="images/reykjavik.swf" />
-        <param name="quality" value="high" />
-        <param name="wmode" value="opaque" />
-        <param name="swfversion" value="15.0.0.0" />
-        <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don�t want users to see the prompt. -->
-        <param name="expressinstall" value="../Scripts/expressInstall.swf" />
-        <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
-        <!--[if !IE]>-->
-        <object type="application/x-shockwave-flash" data="images/reykjavik.swf" width="467" height="182">
-          <!--<![endif]-->
-          <param name="quality" value="high" />
-          <param name="wmode" value="opaque" />
-          <param name="swfversion" value="15.0.0.0" />
-          <param name="expressinstall" value="../Scripts/expressInstall.swf" />
-          <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
-          <div>
-            <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
-            <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" width="112" height="33" /></a></p>
-          </div>
-          <!--[if !IE]>-->
-        </object>
-        <!--<![endif]-->
-      </object></td>
-      <td width="37%"><img src="images/paris_2.jpg" alt="" width="239" height="182" /></td> 
-    </tr>
-  </table>
-  <table width="100%" border="0" cellpadding="5" cellspacing="5">
-    <tr>
-      <td><img src="images/ice_hotel.jpg" alt="" width="239" height="182" /></td>
-      <td><object id="FlashID2" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="467" height="182">
-        <param name="movie" value="images/wimbledon.swf" />
-        <param name="quality" value="high" />
-        <param name="wmode" value="opaque" />
-        <param name="swfversion" value="15.0.0.0" />
-        <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don&rsquo;t want users to see the prompt. -->
-        <param name="expressinstall" value="../Scripts/expressInstall.swf" />
-        <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
-        <!--[if !IE]>-->
-        <object type="application/x-shockwave-flash" data="images/wimbledon.swf" width="467" height="182">
-          <!--<![endif]-->
-          <param name="quality" value="high" />
-          <param name="wmode" value="opaque" />
-          <param name="swfversion" value="15.0.0.0" />
-          <param name="expressinstall" value="../Scripts/expressInstall.swf" />
-          <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
-          <div>
-            <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
-            <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" width="112" height="33" /></a></p>
-          </div>
-          <!--[if !IE]>-->
-        </object>
-        <!--<![endif]-->
-      </object></td>
-    </tr>
-    <tr> </tr>
-  </table>
-  <table width="100%" border="0" cellpadding="5" cellspacing="5">
-    <tr>
-      <td><object id="FlashID3" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="467" height="182">
-        <param name="movie" value="images/vegas.swf" />
-        <param name="quality" value="high" />
-        <param name="wmode" value="opaque" />
-        <param name="swfversion" value="15.0.0.0" />
-        <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don&rsquo;t want users to see the prompt. -->
-        <param name="expressinstall" value="../Scripts/expressInstall.swf" />
-        <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
-        <!--[if !IE]>-->
-        <object type="application/x-shockwave-flash" data="images/vegas.swf" width="467" height="182">
-          <!--<![endif]-->
-          <param name="quality" value="high" />
-          <param name="wmode" value="opaque" />
-          <param name="swfversion" value="15.0.0.0" />
-          <param name="expressinstall" value="../Scripts/expressInstall.swf" />
-          <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
-          <div>
-            <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
-            <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" width="112" height="33" /></a></p>
-          </div>
-          <!--[if !IE]>-->
-        </object>
-        <!--<![endif]-->
-      </object></td>
-      <td><img src="images/chelt_hosp.jpg" alt="" width="239" height="182" /></td>
-    </tr>
-    <tr> </tr>
-  </table>
-  <p>&nbsp;</p>&nbsp;</p>
-</div>
+  <h2>Account Details</h2>
+  
+	<?php
+	$breadcrumbs = new Breadcrumbs();
+	echo $breadcrumbs->showBreadcrumbs($curUser, $_SESSION, $user4, $user3, $user2);
+	?>
+<br />
+<?php if($_SESSION['name'] == $curUser['name']){
+echo "Hello, " . $_SESSION['name'];
+} ?>
 
+
+
+
+    <?php if (!empty($_GET['promo']) && $_GET['promo'] == 'error') { ?>
+   		<div class="error">There has been an unexpected error, please try again later.</div>
+    <?php } else if (!empty($_GET['promo']) && $_GET['promo'] == 'success') { ?>
+        <div class="warning">Your promotion selection has been updated.</div>
+    <?php }
+	
+	echo $account->showDetails($curUser); ?>
+
+    <?php if ($curUser['access'] == 5) { // super admin ?>
+<div>
+            <h2>Administration Tools</h2>
+            <a href="/account/notifications/">Email Notifications Centre</a><br />
+            <a href="/admin/findActivated.php">View Activated / Non-Activated Users</a><br />
+            <a href="/account/import/index.php">Import Data</a>
+        </div>
+
+	<?php } 
+			if($curUser['access'] == 2){
+				echo "<h2>Customers</h2>";
+				echo "<p>Below are your current Customers and their targets for the 2015 promotion. Click a customers name or click view details to see more information of the customer and their progress.</p>";
+			} else if($curUser['access'] == 3){
+				echo "<h2>Branch Managers</h2>";
+				echo "<p>Below are your Branch Managers for the region and the corresponding branch name. Click their name or 'View Branch' to see more details and their customers.</p>";
+			} else if($curUser['access'] == 4){
+				echo "<h2>Region Managers</h2>";
+				echo "<p>Below are your Regional Managers for BSS. Click their name to see more information about each of their branches and customers.</p>";
+			}?>
+			<br /><span style="font-size: 13px;"> <?echo $account->showUsers($curUser['access'], $users); ?> </span>
+<br />
+<?php
+	if($curUser['access'] > 1){
+	?>
+	<h2>Statistics</h2>
+		<?php
+			$tier = $stat->getTierCompletedByRegion($curUser['accNo']);
+			$allTier = $stat->getRegions();
+
+
+			if($tier[1] == 0){
+				$percent1 = 0;
+			} else {
+				$percent1 = floor(($tier[1] / $tier[3]) * 100);
+			}
+
+			if($tier[2] == 0){
+				$percent2 = 0;
+			} else {
+				$percent2 = floor(($tier[2] / $tier[3]) * 100);
+			}
+
+		?><div style="width: 280px; float: left;">
+		<p><div style="float: left; width: 130px; height: 140px; display: block; margin: 0 3px 0 3px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 24px; line-height: normal; font-family: Arial; text-align: center; color: #F01238;">
+				<span style="margin-bottom: 3px; ">Gold</span>
+				<input type="text" value="<?php echo $percent1 ?>" class="dial" data-readOnly="true" data-fgColor="#011949" data-thickness=".1" data-width="100">
+			</div></p>
+		<p><div style="float: left; width: 130px; height: 140px; display: block; margin: 0 3px 0 3px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 24px; line-height: normal; font-family: Arial; text-align: center; color: #F01238;">
+				<span style="margin-bottom: 3px; ">Platinum</span>
+				<input type="text" value="<?php echo $percent2 ?>" class="dial" data-readOnly="true" data-fgColor="#011949" data-thickness=".1" data-width="100">
+			</div></p></div>
+
+			<div style="float: right; width: 470px;"><?php if($tier[1] == 0){ echo "<b>0</b>"; } else { echo "<b>" . $tier[1] . "</b>"; } ?> customers have completed gold tier and <?php if($tier[2] == 0){ echo "<b>0</b>"; } else { echo "<b>" . $tier[2] . "</b>"; } ?> customers have completed platinum tier out of <?php echo "<b>" . $tier[3] . "</b>" ?> customers overall.</div>
+
+			<div style="clear: both;"></div><br /><br />
+
+		<?php if ($curUser['access'] > 3) {
+			}}?>
+
+
+    <?php
+
+	if ($curUser['access'] < 2) {
+	?>
+
+        <h2>2015 Double Tier Promotion</h2>
+		<?php echo $account->showIntro($curUser['access'], $curUser['r_startDate'], $curUser['r_endDate']); ?>
+		<BR /><BR />
+		<h2>Targets</h2>
+        <?php if (!empty($curUser['t1limit'])) { ?>
+            <h3>Target for Gold Tier = <?php echo '&pound;' . number_format($curUser['t1limit'], 2, '.', ','); ?></h3>
+            <h3>Target for Platinum Tier = <?php echo '&pound;' . number_format($curUser['t2limit'], 2, '.', ','); ?></h3>
+            <?php if (!empty($curUser['t3limit'])) { ?>
+                <h3>Target for Tier 3 = <?php echo '&pound;' . number_format($curUser['t3limit'], 2, '.', ','); ?></h3>
+            <?php } ?>
+        <?php } else { ?>
+            <p>We have not set up your tier targets yet, please check back later.</p>
+        <?php } ?>
+<BR />
+        <h2>Monthly spend excluding VAT <span style="color: #000; font-size: 12px"></span></h2>
+        <?php if (!empty($curUser['expenses']['Total'])) { ?>
+            <table class="expenses" width="100%" border="0" cellspacing="0">
+                <?php
+                $i=0;
+                    foreach($curUser['expenses'] as $key => $value) { 
+						$i++; 
+						if ($i < 4) continue;
+						if ($i > 9) break;
+						?>
+                    <tr bgcolor="<?php if($i % 2 == 0){ echo '#E3E3E3'; } ?>">
+                        <th width="15%"><?php $time = strtotime($key); echo date('F', $time); ?></th>
+                        <td><?php echo '&pound;' . number_format($value, 2, '.', ','); ?></td>
+					</tr>
+                 <?php }
+                ?>
+                    <tr>
+                        <th class="total"></th>
+                        <td style="text-align: right; font-size: 20px; padding-top: 2px;"><strong>Total</strong> <?php echo '&pound;' . number_format($curUser['expenses']['Total'], 2, '.', ','); ?></td>
+                    </tr>
+            </table>
+			<?php } else {
+                // message to display if the user has no expenses yet
+                echo '<p>We do not currently have any spend data for your account. Please check back later.</p>';
+            } ?>
+		<span class="divide"></span>
+	<?php
+	}
+        if (!empty($selectedPromo)) { ?>
+
+    <?php }
+	if ($curUser['access'] < 2) {
+        // this is the promotions file
+        include($_SERVER['DOCUMENT_ROOT'] . '/account/promotions/index.php');
+	}
+?>
+<?php if($curUser['access'] > 2 && $curUser['access'] < 5){ ?>
+<h2>Administration Tools</h2>
+<a href="/admin/findActivated.php">View Activated / Non-Activated Users</a><br /><br />
+<? } ?>
+</div>
 <div id="sidebar">
-<h2>Welcome!</h2>
-<p>
-<a href="login/"><img src="images/bss_login.png" alt="Login" border="0" /></a></p>
+  <h2>Useful Links</h2>
+  <ul>
+	<li>» <a href="/contact">Contact us</a></li>
+	<li>» <a href="/testimonials">Testimonials</a></li>
+  </ul>
+  <p>&nbsp;</p>
 </div>
-
 <div id="footer">
 <p><a href="/contact">Contact us | </a><a href="/terms">Terms and Conditions</a> | <a href="/privacy">Privacy policy </a>| <a href="/access">Access Statement </a>|<a href="/conditions"> Conditions of use </a>| <a href="#header">Back to top</a> <br />
-&copy; 2014 Finders Keepers Ltd | Design by <a href="http://www.finderskeepersuk.com/" target="_new">Finders Keepers Sports and Marketing Ltd<br />
-</a></p>
+&copy; 2015 Finders Keepers Ltd | Design by <a href="http://www.finderskeepersuk.com/" target="_new">Finders Keepers Sports and Marketing Ltd</a><br />
+</p>
 <div><strong>Registered office:</strong> Lodge Way House,&nbsp;&nbsp;Lodge Way,&nbsp;&nbsp;Harlestone Road,&nbsp;&nbsp;Northampton&nbsp;&nbsp;NN5 7UG</div>
+
 <p>Registered in England No: 00824821 VAT registration number: 408556737</p>
+
 <p></p>
-<p><a href="http://www.finderskeepersuk.com/" target="_new"></a></p>
-</div>
+
+<p>&nbsp; </p>
 
 </div>
-<script type="text/javascript">
-swfobject.registerObject("FlashID");
-swfobject.registerObject("FlashID2");
-swfobject.registerObject("FlashID3");
-</script>
+</div>
+
 </body>
 </html>

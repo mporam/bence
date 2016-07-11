@@ -86,8 +86,13 @@ $app->post('/login/reset', function ($request, $response, $args) {
 });
 
 $app->get('/account', function ($request, $response, $args) {
+    $stat = new \Bence\Stat($this->db);
+    $args['stats']['circles'] .= $stat->getStatCircle('test', 82);
+    $args['stats']['circles'] .= $stat->getStatCircle('test2', 23);
+
     $args['loggedIn'] = $_SESSION['loggedIn'];
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
+    $args['stats']['info'] = $stat->getStatInfo();
     return $this->renderer->render($response, 'account.phtml', $args);
 });
 

@@ -67,12 +67,10 @@
             <h5>Stats</h5>
         </div>
         <div class="col-md-6">
-            <div id="test-circle" class="stat"></div>
-            <div id="test-circle-2" class="stat"></div>
+            <?php echo $data['stats']['circles']; ?>
         </div>
         <div class="col-md-6">
-            <b>28</b> customers have completed gold tier and <b>20</b> customers have completed silver teir out of
-            <b>100</b> customers overall.
+            <?php echo $data['stats']['info']; ?>
         </div>
     </div>
 </main>
