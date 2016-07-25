@@ -58,7 +58,26 @@
 
         </div>
         <div class="col-md-8">
-            No users have been registered for 2016 yet, please check back later.
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Users</th>
+                    </tr>
+                </thead>
+                <?php
+                if (!empty($data['users'])) {
+                    foreach($data['users'] as $user) {
+                        echo "<tr><td><a href='?uid=" . $user['id'] . "'>" . $user['name'] . "</a></td></tr>";
+                    }
+                } ?>
+            </table>
+            <?php
+            if (empty($data['users'])) {
+                // @todo: this needs to show for access > 1 only
+                echo '<p>No users have been registered for 2016 yet, please check back later.</p>';
+            }
+            ?>
+
         </div>
     </div>
 

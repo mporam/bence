@@ -20,7 +20,7 @@ class User
             $email = $auth->email;
             $password = $auth->password;
 
-            return $this->getUserWithHash($email, $password);
+            return $this->storeUserWithHash($email, $password);
         }
         return false;
     }
@@ -50,27 +50,60 @@ class User
 
         if (!empty($salt)) {
             $hash = sha1($password . $salt);
-            return $this->getUserWithHash($email, $hash);
+            return $this->storeUserWithHash($email, $hash);
         }
         return false;
     }
 
-    private function getUserWithHash($email, $hash) {
+    private function storeUserWithHash($email, $hash) {
         $query = $this->db->prepare("
                 SELECT * FROM users
                   LEFT JOIN regions ON users.region=regions.r_id
-                  WHERE users.email= '$email'
+                  WHERE users.email = '$email'
                     AND users.password = '$hash'"
         );
         $query->execute();
         $user = $query->fetch(\PDO::FETCH_ASSOC);
 
         if (!empty($user)) {
-            $_SESSION = $user;
+            $_SESSION = $user; // store user details in session
             $_SESSION['loggedIn'] = true;
+
+            $_SESSION['permissions'] = $this->getUserPermissions($user['id']);
+
             return true;
         }
         return false;
+    }
+
+    public function getUserWithHash($email, $hash) {
+        $query = $this->db->prepare("
+                SELECT * FROM users
+                  LEFT JOIN regions ON users.region=regions.r_id
+                  WHERE users.email = '$email'
+                    AND users.password = '$hash';
+        ");
+        $query->execute();
+        return $query->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function getUserWithId($uid) {
+        $query = $this->db->prepare("
+                SELECT * FROM users
+                  LEFT JOIN regions ON users.region=regions.r_id
+                  WHERE users.id = '$uid';
+        ");
+        $query->execute();
+        return $query->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function getUserPermissions($uid) {
+        $query = $this->db->prepare("
+            SELECT `childUser` FROM `userPermissions`
+              WHERE `userId` = '$uid';
+        ");
+        $query->execute();
+        return $query->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     public function validateReset($resetId) {

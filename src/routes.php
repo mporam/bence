@@ -87,6 +87,8 @@ $app->post('/login/reset', function ($request, $response, $args) {
 
 $app->get('/account', function ($request, $response, $args) {
     $stat = new \Bence\Stat($this->db);
+    $user = new \Bence\User($this->db);
+    $get = $request->getQueryParams();
     $args['stats']['circles'] = '';
     $args['stats']['circles'] .= $stat->getStatCircle('test', 82);
     $args['stats']['circles'] .= $stat->getStatCircle('test2', 23);
@@ -94,6 +96,18 @@ $app->get('/account', function ($request, $response, $args) {
     $args['loggedIn'] = $_SESSION['loggedIn'];
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
     $args['stats']['info'] = $stat->getStatInfo();
+
+    $permissions = $_SESSION['permissions'];
+    if (!empty($get['uid']) && $_SESSION['access'] > 1) {
+        //@todo: will have to account for multiple user levels
+        $permissions = $user->getUserPermissions($get['uid']);
+    }
+
+    if (!empty($permissions) && $_SESSION['access'] > 1) {
+        foreach ($permissions as $uid) {
+            $args['users'][] = $user->getUserWithId($uid);
+        }
+    }
     return $this->renderer->render($response, 'account.phtml', $args);
 });
 
