@@ -10,7 +10,17 @@ require __DIR__ . '/inc/header.inc';
 $fileType = pathinfo($_FILES["data"]["name"], PATHINFO_EXTENSION);
 
 if ($fileType != 'csv') {
-    echo 'Not a CSV file.';
+    ?>
+    <main class="shadow container">
+    <div class="row">
+        <div class="col-xs-12">
+            <?php require __DIR__ . '/inc/breadcrumbs.inc'; ?>
+        </div>
+    </div>
+    <p>Not a CSV file.</p>
+    </main>
+    <?php
+    require __DIR__ . '/inc/footer.inc';
     exit();
 }
 
