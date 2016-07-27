@@ -98,9 +98,12 @@ $app->get('/account', function ($request, $response, $args) {
     $args['stats']['info'] = $stat->getStatInfo();
 
     $permissions = $_SESSION['permissions'];
+    $args['user'] = $_SESSION;
+
     if (!empty($get['uid']) && $_SESSION['access'] > 1) {
         //@todo: will have to account for multiple user levels
         $permissions = $user->getUserPermissions($get['uid']);
+        $args['user'] = $user->getUserWithId($get['uid']);
     }
 
     if (!empty($permissions) && $_SESSION['access'] > 1) {
