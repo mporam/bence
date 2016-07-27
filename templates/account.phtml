@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/inc/header.inc';
 
-$user = $_SESSION;
+$user = $data['user'];
 ?>
 
 <main class="shadow container">
@@ -10,15 +10,18 @@ $user = $_SESSION;
             <?php require __DIR__ . '/inc/breadcrumbs.inc'; ?>
         </div>
     </div>
-    <div class="col-xs-12">
-        <h2>Welcome, <?= $user['name'] ?>!</h2>
-    </div>
-    <div class="col-xs-12">
-        <h3>Account Details <a href="#"><span class="glyphicon glyphicon-pencil"></span></a></h3>
-    </div>
-
 
     <div class="row">
+        <div class="col-xs-12">
+            <h2>Welcome, <?php echo $_SESSION['name'] ?>!</h2>
+            <?php if ($_SESSION['id'] !== $user['id']) {
+                echo "<p>You are viewing " . $user['name'] . "'s profile logged in as " . $_SESSION['name'] . ".</p>";
+            } ?>
+        </div>
+    </div>
+
+    <div class="row">
+
         <div class="col-xs-12 col-md-6">
             
             <div class="col-xs-4 account-details align-right">
@@ -75,6 +78,7 @@ $user = $_SESSION;
                 <?php echo '<div>' . $user['address3'] . '</div>'; ?>
                 <?php echo '<div>' . $user['address4'] . '</div>'; ?>
                 <?php echo($user['postcode'] ?: '--'); ?>
+
             </div>
         </div>
     </div>
@@ -91,41 +95,44 @@ $user = $_SESSION;
 
             </div>
         </div>
-        <div class="col-xs-12 col-md-6">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Users</th>
-                </tr>
-                </thead>
+        <?php
+        if ($_SESSION['access'] > 1 && $user['access'] != 1) { ?>
+            <div class="col-xs-12 col-md-6">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Users</th>
+                    </tr>
+                    </thead>
+                    <?php
+                    if (!empty($data['users'])) {
+                        foreach ($data['users'] as $user) {
+                            echo "<tr><td><a href='?uid=" . $user['id'] . "'>" . $user['name'] . "</a></td></tr>";
+                        }
+                    } ?>
+                </table>
                 <?php
-                if (!empty($data['users'])) {
-                    foreach ($data['users'] as $user) {
-                        echo "<tr><td><a href='?uid=" . $user['id'] . "'>" . $user['name'] . "</a></td></tr>";
-                    }
-                } ?>
-            </table>
-            <?php
-            if (empty($data['users'])) {
-                // @todo: this needs to show for access > 1 only
-                echo '<p>No users have been registered for 2016 yet, please check back later.</p>';
-            }
-            ?>
-
-        </div>
+                if (empty($data['users'])) {
+                    echo '<p>No users have been registered for 2016 yet, please check back later.</p>';
+                }
+                ?>
+            </div>
+        <?php } ?>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <h5>Stats</h5>
+    <?php if ($_SESSION['access'] > 1) { ?>
+        <div class="row">
+            <div class="col-xs-12">
+                <h5>Stats</h5>
+            </div>
+            <div class="col-md-6">
+                <?php echo $data['stats']['circles']; ?>
+            </div>
+            <div class="col-md-6">
+                <?php echo $data['stats']['info']; ?>
+            </div>
         </div>
-        <div class="col-md-6">
-            <?php echo $data['stats']['circles']; ?>
-        </div>
-        <div class="col-md-6">
-            <?php echo $data['stats']['info']; ?>
-        </div>
-    </div>
+    <?php } ?>
 </main>
 
 <?php require __DIR__ . '/inc/footer.inc'; ?>

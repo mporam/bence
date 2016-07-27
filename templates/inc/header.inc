@@ -28,31 +28,32 @@
 <body>
 <header>
     <div class="container">
-<!--        <div id="logo" class="col-xs-4">-->
-        <div id="logo" class="col-xs-6">
-            <h1>Bence
-                <small>Rewards</small>
-            </h1>
-        </div>
-<!--        <div class="col-xs-8">-->
-        <div class="col-xs-6">
-            <div class="contact">
-                <a href="tel:078875 98721">
-                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
-                    <span class="hidden-sm hidden-xs">078875 98721</span>
-                </a>
-                <a href="mailto:">
-                    <span class="glyphicon glyphicon-envelope"></span>
-                    <span class="hidden-sm hidden-xs">adrian@michelangelo.cat</span>
-                </a>
+        <div class="row no-pad md-pad">
+            <div id="logo" class="col-xs-6">
+                <h1>
+                    <img src="/img/logo.png" alt="Bence">
+                    <small>Rewards</small>
+                </h1>
             </div>
-            <div class="action">
-                <?php if (empty($data['loggedIn'])) { ?>
-                    <a href="/login">Login</a>
-                <?php } else { ?>
-                    <a href="/account">Account</a>
-                    <a href="/logout">Logout</a>
-                <?php } ?>
+            <div class="col-xs-6">
+                <div class="contact">
+                    <a href="tel:078875 98721">
+                        <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                        <span class="hidden-sm hidden-xs">078875 98721</span>
+                    </a>
+                    <a href="mailto:">
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        <span class="hidden-sm hidden-xs">adrian@michelangelo.cat</span>
+                    </a>
+                </div>
+                <div class="action">
+                    <?php if (empty($data['loggedIn'])) { ?>
+                        <a href="/login">Login</a>
+                    <?php } else { ?>
+                        <a href="/account">Account</a>
+                        <a href="/logout">Logout</a>
+                    <?php } ?>
+                </div>
             </div>
         </div>
     </div>
