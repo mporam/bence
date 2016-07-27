@@ -13,10 +13,14 @@ if (!empty($data['breadcrumbs'])) {
             $output .= "<span>$crumb</span>";
         } else {
             $output .= '<a href="' . $url . '">' . $crumb . ' > </a>';
+
+            if ($i == count($data['breadcrumbs'])-1) {
+                $back = $url;
+            }
         }
     }
 
-    $output .= "<div class=\"pull-right\"><a href='#' onclick='window.history.back();'>< Back</a></div></div>";
+    $output .= "<div class=\"pull-right\"><a href='$back'>< Back</a></div></div>";
 }
 
 echo $output;

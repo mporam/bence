@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/inc/header.inc';
 
-$user = $data['user'];
+$user = $_SESSION;
 ?>
 
 <main class="shadow container">
@@ -17,7 +17,7 @@ $user = $data['user'];
         <h3>Account Details <a href="#"><span class="glyphicon glyphicon-pencil"></span></a></h3>
     </div>
 
-    
+
     <div class="col-xs-12">
         <div class="col-md-6">
             <div class="col-md-4 align-right">
@@ -78,33 +78,52 @@ $user = $data['user'];
         </div>
     </div>
 
-
-    <div class="col-xs-12">
-        <h4>Admin Tools</h4>
-    </div>
     <div class="row">
-        <div class="col-md-4">
-            <ul>
-                <li><a href="account/notifications">Notification Centre</a></li>
-                <li><a href="#">View User List</a></li>
-                <li><a href="account/import">Import Data</a></li>
-            </ul>
+        <div class="col-xs-12 col-md-6">
+            <h4>Admin Tools</h4>
+            <div class="col-md-12">
+                <ul>
+                    <li><a href="account/notifications">Notification Centre</a></li>
+                    <li><a href="#">View User List</a></li>
+                    <li><a href="account/import">Import Data</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Users</th>
+                </tr>
+                </thead>
+                <?php
+                if (!empty($data['users'])) {
+                    foreach ($data['users'] as $user) {
+                        echo "<tr><td><a href='?uid=" . $user['id'] . "'>" . $user['name'] . "</a></td></tr>";
+                    }
+                } ?>
+            </table>
+            <?php
+            if (empty($data['users'])) {
+                // @todo: this needs to show for access > 1 only
+                echo '<p>No users have been registered for 2016 yet, please check back later.</p>';
+            }
+            ?>
 
         </div>
-        <div class="col-md-8">
-            No users have been registered for 2016 yet, please check back later.
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h5>Stats</h5>
         </div>
-    </div>
-    <div class="col-xs-12">
-        <h5>Stats</h5>
-    </div>
-    <div class="col-md-6">
-        <div id="test-circle" class="stat"></div>
-        <div id="test-circle-2" class="stat"></div>
-    </div>
-    <div class="col-md-6">
-        <b>28</b> customers have completed gold tier and <b>20</b> customers have completed silver teir out of
-        <b>100</b> customers overall.
+        <div class="col-md-6">
+            <?php echo $data['stats']['circles']; ?>
+        </div>
+        <div class="col-md-6">
+            <?php echo $data['stats']['info']; ?>
+        </div>
     </div>
 </main>
 

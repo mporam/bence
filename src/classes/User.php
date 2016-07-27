@@ -20,7 +20,7 @@ class User
             $email = $auth->email;
             $password = $auth->password;
 
-            return $this->getUserWithHash($email, $password);
+            return $this->storeUserWithHash($email, $password);
         }
         return false;
     }
@@ -50,27 +50,60 @@ class User
 
         if (!empty($salt)) {
             $hash = sha1($password . $salt);
-            return $this->getUserWithHash($email, $hash);
+            return $this->storeUserWithHash($email, $hash);
         }
         return false;
     }
 
-    private function getUserWithHash($email, $hash) {
+    private function storeUserWithHash($email, $hash) {
         $query = $this->db->prepare("
                 SELECT * FROM users
                   LEFT JOIN regions ON users.region=regions.r_id
-                  WHERE users.email= '$email'
+                  WHERE users.email = '$email'
                     AND users.password = '$hash'"
         );
         $query->execute();
         $user = $query->fetch(\PDO::FETCH_ASSOC);
 
         if (!empty($user)) {
-            $_SESSION = $user;
+            $_SESSION = $user; // store user details in session
             $_SESSION['loggedIn'] = true;
+
+            $_SESSION['permissions'] = $this->getUserPermissions($user['id']);
+
             return true;
         }
         return false;
+    }
+
+    public function getUserWithHash($email, $hash) {
+        $query = $this->db->prepare("
+                SELECT * FROM users
+                  LEFT JOIN regions ON users.region=regions.r_id
+                  WHERE users.email = '$email'
+                    AND users.password = '$hash';
+        ");
+        $query->execute();
+        return $query->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function getUserWithId($uid) {
+        $query = $this->db->prepare("
+                SELECT * FROM users
+                  LEFT JOIN regions ON users.region=regions.r_id
+                  WHERE users.id = '$uid';
+        ");
+        $query->execute();
+        return $query->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function getUserPermissions($uid) {
+        $query = $this->db->prepare("
+            SELECT `childUser` FROM `userPermissions`
+              WHERE `userId` = '$uid';
+        ");
+        $query->execute();
+        return $query->fetchAll(\PDO::FETCH_COLUMN);
     }
 
     public function validateReset($resetId) {
@@ -94,5 +127,32 @@ class User
 
         $query = $this->db->prepare("UPDATE users SET pwreset=null, password='$password' WHERE `id`='$id';");
         return $query->execute();
+    }
+
+    public function update($uid, $user) {
+        $name = $user['name'];
+        $email = $user['email'];
+        $company = $user['company'];
+        $address1 = $user['address1'];
+        $address2 = $user['address2'];
+        $address3 = $user['address3'];
+        $address4 = (empty($user['address4']) ? null : $user['address4']);
+        $postcode = $user['postcode'];
+        $phone = $user['phone'];
+        $mobile = (empty($user['mobile']) ? null : $user['mobile']);
+
+        $query = $this->db->prepare("UPDATE users SET `name`='$name', `email`='$email', `company`='$company',
+`address1`='$address1', `address2`='$address2', `address3`='$address3', `address4`='$address4', `postcode`='$postcode',
+`phone`='$phone', `mobile`='$mobile' WHERE `id`='$uid'; ");
+
+        $return = $query->execute();
+
+        //update session with new data
+        $query = $this->db->prepare("SELECT * FROM users LEFT JOIN regions ON users.region=regions.r_id WHERE users.id = '$uid'");
+        $query->execute();
+        $result = $query->fetch(\PDO::FETCH_ASSOC);
+        $_SESSION = array_merge($_SESSION, $result);
+
+        return $return;
     }
 }

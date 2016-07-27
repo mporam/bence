@@ -86,9 +86,65 @@ $app->post('/login/reset', function ($request, $response, $args) {
 });
 
 $app->get('/account', function ($request, $response, $args) {
+    $stat = new \Bence\Stat($this->db);
+    $user = new \Bence\User($this->db);
+    $get = $request->getQueryParams();
+    $args['stats']['circles'] = '';
+    $args['stats']['circles'] .= $stat->getStatCircle('test', 82);
+    $args['stats']['circles'] .= $stat->getStatCircle('test2', 23);
+
     $args['loggedIn'] = $_SESSION['loggedIn'];
-    $args['breadcrumbs'] = ['/' => 'Home', '/account' => 'Account'];
+    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
+    $args['stats']['info'] = $stat->getStatInfo();
+
+    $permissions = $_SESSION['permissions'];
+    if (!empty($get['uid']) && $_SESSION['access'] > 1) {
+        //@todo: will have to account for multiple user levels
+        $permissions = $user->getUserPermissions($get['uid']);
+    }
+
+    if (!empty($permissions) && $_SESSION['access'] > 1) {
+        foreach ($permissions as $uid) {
+            $args['users'][] = $user->getUserWithId($uid);
+        }
+    }
     return $this->renderer->render($response, 'account.phtml', $args);
+});
+
+$app->get('/account/update', function ($request, $response, $args) {
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/update'=>'Update'];
+
+    $args['user'] = $_SESSION;
+    return $this->renderer->render($response, 'user.phtml', $args);
+});
+
+$app->post('/account/update', function ($request, $response, $args) {
+    $post = $request->getParsedBody();
+    $user = new \Bence\User($this->db);
+
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/update'=>'Update'];
+
+    if
+    (
+        empty($post['name'])
+        || empty($post['email'])
+        || empty($post['company'])
+        || empty($post['address1'])
+        || empty($post['address2'])
+        || empty($post['address3'])
+        || empty($post['postcode'])
+        || empty($post['phone'])
+    ) {
+        $args['update'] = 'incomplete';
+        $args['user'] = $_SESSION;
+        return $this->renderer->render($response, 'user.phtml', $args);
+    }
+
+    $args['update'] = $user->update($_SESSION['id'], $post);
+    $args['user'] = $_SESSION;
+    return $this->renderer->render($response, 'user.phtml', $args);
 });
 
 $app->get('/account/notifications', function ($request, $response, $args) {
