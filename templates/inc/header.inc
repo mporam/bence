@@ -37,12 +37,12 @@
 <body>
 <header>
     <div class="container">
-        <div id="logo" class="col-md-6">
+        <div id="logo" class="col-xs-4">
             <h1>Bence
                 <small>Rewards</small>
             </h1>
         </div>
-        <div class="col-md-6">
+        <div class="col-xs-8">
             <div class="contact">
                 <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> 078875 98721 <span class="glyphicon glyphicon-envelope"></span> adrian@michelangelo.cat
             </div>
