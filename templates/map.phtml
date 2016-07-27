@@ -6,7 +6,7 @@ require __DIR__ . '/inc/header.inc';
 //if ($_SESSION['access'] !== 5) {
 //    header('Location: /account/');
 //}
-session_start(); //remove this when finished
+//session_start(); //remove this when finished
 $fileType = pathinfo($_FILES["data"]["name"], PATHINFO_EXTENSION);
 
 if ($fileType != 'csv') {
@@ -14,7 +14,7 @@ if ($fileType != 'csv') {
     exit();
 }
 
-$targetDir = "data/";
+$targetDir = __DIR__ . "/../src/import_data/";
 $datetime = date('Y-m-d-H:i:s', strtotime('+1 hour'));
 $targetFile = $targetDir . $datetime . '-upload.' . $fileType;
 if (move_uploaded_file($_FILES["data"]["tmp_name"], $targetFile)) {
@@ -43,7 +43,7 @@ $firstLine = $_SESSION['import'][0];
         </div>
 
         <p>Please map the fields:</p>
-        <form action="import/complete" method="post">
+        <form action="/account/import/complete" method="post">
             <?php
             foreach ($firstLine as $key => $val) { ?>
 

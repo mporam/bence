@@ -2,29 +2,27 @@
 
 /**************** DB CONFIG *****************/
 //require($_SERVER['DOCUMENT_ROOT'] . '/sql/db_con.php');
-
-
-/**************** VERIFICATION *****************/
-session_start();
-
-if(empty($_SESSION)) {
-    session_destroy();
-    header("Location: /login/");
-}
-
 $con = $data['db'];
 
-$email= $_SESSION['email'];
-$password = $_SESSION['password'];
-
-$query = $con->prepare("SELECT * FROM users WHERE `email` = '$email' AND `password` = '$password'");
-$query -> execute();
-$check = $query->fetch(PDO::FETCH_ASSOC);
-
-if (empty($check)) {
-    session_destroy();
-    header("Location: /login/?login=failed");
-}
+/**************** VERIFICATION *****************/
+//session_start();
+//
+//if(empty($_SESSION)) {
+//    session_destroy();
+//    header("Location: /login/");
+//}
+//
+//$email= $_SESSION['email'];
+//$password = $_SESSION['password'];
+//
+//$query = $con->prepare("SELECT * FROM users WHERE `email` = '$email' AND `password` = '$password'");
+//$query -> execute();
+//$check = $query->fetch(PDO::FETCH_ASSOC);
+//
+//if (empty($check)) {
+//    session_destroy();
+//    header("Location: /login/?login=failed");
+//}
 
 /**************** NOTIFICATIONS *****************/
 
