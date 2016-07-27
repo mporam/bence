@@ -1,4 +1,8 @@
-<?php require __DIR__ . '/inc/header.inc'; ?>
+<?php
+require __DIR__ . '/inc/header.inc';
+
+$user = $_SESSION;
+?>
 
 <main class="shadow container">
     <div class="row">
@@ -6,67 +10,96 @@
             <?php require __DIR__ . '/inc/breadcrumbs.inc'; ?>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-xs-12">
-            <h2>Welcome, Dave!</h2>
-        </div>
+    <div class="col-xs-12">
+        <h2>Welcome, <?= $user['name'] ?>!</h2>
+    </div>
+    <div class="col-xs-12">
+        <h3>Account Details <a href="#"><span class="glyphicon glyphicon-pencil"></span></a></h3>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Account Details <a href="/account/update"><span class="glyphicon glyphicon-pencil"></span></a></h3>
-        </div>
-        <div class="col-xs-12">
-            <div class="col-md-2 align-right">
+
+    <div class="col-xs-12">
+        <div class="col-md-6">
+            <div class="col-md-4 align-right">
                 <p>Full Name: </p>
+            </div>
+            <div class="col-md-8">
+                <p><?php echo($user['name'] ?: '--'); ?></p>
+            </div>
+            <div class="col-md-4 align-right">
                 <p>Company Name:</p>
+            </div>
+            <div class="col-md-8">
+                <p><?php echo($user['company'] ?: '--'); ?></p>
+            </div>
+            <div class="col-md-4 align-right">
                 <p>Account Number:</p>
+            </div>
+            <div class="col-md-8">
+                <p><?php echo($user['accNo'] ?: '--'); ?></p>
+            </div>
+            <div class="col-md-4 align-right">
                 <p>Phone Number: </p>
+            </div>
+            <div class="col-md-8">
+                <p><?php echo($user['phone'] ?: '--'); ?></p>
+            </div>
+            <div class="col-md-4 align-right">
+                <p>Mobile Number: </p>
+            </div>
+            <div class="col-md-8">
+                <p><?php echo($user['mobile'] ?: '--'); ?></p>
+            </div>
+            <div class="col-md-4 align-right">
                 <p>Email address: </p>
             </div>
-            <div class="col-md-4">
-                <p>David Fakhir</p>
-                <p>Finders Keepers UK</p>
-                <p>FK123</p>
-                <p>07895971222</p>
-                <p>dave@finderskeepersuk.com</p>
+            <div class="col-md-8">
+                <p><?php echo($user['email'] ?: '--'); ?></p>
             </div>
-            <div class="col-md-2 align-right">
-                <p>Address:</p>
-                <p>Postcode:</p>
+        </div>
+
+        <div class="col-md-6">
+            <div class="col-md-4 align-right">
                 <p>Region:</p>
             </div>
-            <div class="col-md-4">
-                <p></p>
-                <p></p>
-                <p></p>
+            <div class="col-md-8">
+                <p><?php echo($user['r_name'] ?: '--'); ?></p>
+            </div>
+            <div class="col-md-4 align-right">
+                <p>Address:</p>
+            </div>
+            <div class="col-md-8">
+                <p><?php echo($user['address1'] ?: '--'); ?></p>
+                <?php echo '<p>' . $user['address2'] . '</p>'; ?>
+                <?php echo '<p>' . $user['address3'] . '</p>'; ?>
+                <?php echo '<p>' . $user['address4'] . '</p>'; ?>
+                <p><?php echo($user['postcode'] ?: '--'); ?></p>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 col-md-6">
             <h4>Admin Tools</h4>
-        </div>
-        <div class="col-md-4">
-            <ul>
-                <li><a href="#">Notification Centre</a></li>
-                <li><a href="#">View User List</a></li>
-                <li><a href="#">Import Data</a></li>
-            </ul>
+            <div class="col-md-12">
+                <ul>
+                    <li><a href="account/notifications">Notification Centre</a></li>
+                    <li><a href="#">View User List</a></li>
+                    <li><a href="account/import">Import Data</a></li>
+                </ul>
 
+            </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-xs-12 col-md-6">
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>Users</th>
-                    </tr>
+                <tr>
+                    <th>Users</th>
+                </tr>
                 </thead>
                 <?php
                 if (!empty($data['users'])) {
-                    foreach($data['users'] as $user) {
+                    foreach ($data['users'] as $user) {
                         echo "<tr><td><a href='?uid=" . $user['id'] . "'>" . $user['name'] . "</a></td></tr>";
                     }
                 } ?>

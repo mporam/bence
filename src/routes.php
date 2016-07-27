@@ -16,7 +16,7 @@ $app->get('/login', function ($request, $response, $args) {
         return $response->withStatus(200)->withHeader('Location', '/account');
     }
 
-    $args['breadcrumbs'] = ['/'=>'Home', '/login'=>'Login'];
+    $args['breadcrumbs'] = ['/' => 'Home', '/login' => 'Login'];
     return $this->renderer->render($response, 'login.phtml', $args);
 });
 
@@ -37,7 +37,7 @@ $app->post('/login', function ($request, $response, $args) {
         return $response->withStatus(200)->withHeader('Location', '/account');
     }
 
-    $args['breadcrumbs'] = ['/'=>'Home', '/login'=>'Login'];
+    $args['breadcrumbs'] = ['/' => 'Home', '/login' => 'Login'];
     $args['login'] = false;
     return $this->renderer->render($response, 'login.phtml', $args);
 
@@ -145,4 +145,75 @@ $app->post('/account/update', function ($request, $response, $args) {
     $args['update'] = $user->update($_SESSION['id'], $post);
     $args['user'] = $_SESSION;
     return $this->renderer->render($response, 'user.phtml', $args);
+});
+
+$app->get('/account/notifications', function ($request, $response, $args) {
+    $args['breadcrumbs'] = ['/' => 'Home', '/account' => 'Account', '/account/notifications' => 'Notifications'];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'notifications.phtml', $args);
+});
+
+$app->post('/account/notifications/email', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/notifications' => 'Notifications',
+        '/account/notifications/email' => 'Email'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'email.phtml', $args);
+});
+
+$app->post('/account/notifications/send', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/notifications' => 'Notifications',
+        '/account/notifications/send' => 'Sending Emails'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'send.phtml', $args);
+});
+
+$app->get('/account/notifications/complete', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/notifications' => 'Notifications',
+        '/account/notifications/send' => 'Emails Sent!'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'complete.phtml', $args);
+});
+
+$app->get('/account/import', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/import' => 'Import Data'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'import.phtml', $args);
+});
+
+$app->post('/account/import/map', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/import' => 'Import Data',
+        '/account/import/map' => 'Map Fields'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'map.phtml', $args);
+});
+
+$app->post('/account/import/complete', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/import' => 'Import Data',
+        '/account/import/complete' => 'Completed Import'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'import_complete.phtml', $args);
 });

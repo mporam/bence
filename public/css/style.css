@@ -182,6 +182,10 @@ label {
     color: #9A1A31;
 }
 
+.email label {
+    display: block;
+}
+
 .form-control {
     border-radius: 0;
     -webkit-border-radius: 0;
@@ -220,6 +224,22 @@ label {
     color: #ffffff;
 }
 
+.btn-info {
+    background-color: #ffffff;
+    color: #2e2e2e;
+    font-weight: bold;
+    width: 117px;
+    border: solid 1px #9E9E9E;
+    margin: 1px;
+    padding: 2px;
+}
+
+.btn-info:hover {
+    background-color: #9E9E9E;
+    color: #ffffff;
+    border-color: #9E9E9E;
+}
+
 /*------------------ Tables */
 
 .table thead tr th {
@@ -228,6 +248,10 @@ label {
 }
 .table td {
     border-bottom: 0;
+}
+
+#users tbody tr {
+    cursor: pointer;
 }
 
 /*------------------ Stats */
