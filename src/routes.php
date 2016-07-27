@@ -88,6 +88,8 @@ $app->post('/login/reset', function ($request, $response, $args) {
 $app->get('/account', function ($request, $response, $args) {
     $stat = new \Bence\Stat($this->db);
     $user = new \Bence\User($this->db);
+    $breadcrumbs = new \Bence\Breadcrumbs();
+
     $get = $request->getQueryParams();
     $args['stats']['circles'] = '';
     $args['stats']['circles'] .= $stat->getStatCircle('test', 82);
@@ -102,6 +104,12 @@ $app->get('/account', function ($request, $response, $args) {
 
     if (!empty($get['uid']) && $_SESSION['access'] > 1) {
         //@todo: will have to account for multiple user levels
+
+        if (empty($_SESSION['breadcrumbs'])) {
+            $_SESSION['breadcrumbs'] = $get['uid'];
+        }
+        $args['breadcrumbs'] += $breadcrumbs->getAccountBreadcrumbs($user, $get['uid'], $_SESSION['breadcrumbs']);
+
         $permissions = $user->getUserPermissions($get['uid']);
         $args['user'] = $user->getUserWithId($get['uid']);
     }
