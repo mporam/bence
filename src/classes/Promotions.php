@@ -23,5 +23,17 @@ class Promotions
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getPromotionsforUser($uid) {
+        $query = $this->db->prepare("
+            SELECT * FROM `userTiers`
+                LEFT JOIN `promotions2015`
+                    ON `userTiers`.`tier` = `promotions2015`.`tier`
+                WHERE `userTiers`.`uid` = $uid;
+        ");
+
+        $query->execute();
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
 
 }

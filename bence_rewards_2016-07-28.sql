@@ -7,7 +7,7 @@
 #
 # Host: 192.168.20.56 (MySQL 5.6.29)
 # Database: bence_rewards
-# Generation Time: 2016-07-26 20:47:30 +0000
+# Generation Time: 2016-07-28 22:09:31 +0000
 # ************************************************************
 
 
@@ -127,75 +127,77 @@ CREATE TABLE `limits2015` (
   `t1limit` varchar(40) NOT NULL,
   `t2limit` varchar(40) DEFAULT NULL,
   `t3limit` varchar(40) DEFAULT NULL,
+  `t4limit` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`accNo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 LOCK TABLES `limits2015` WRITE;
 /*!40000 ALTER TABLE `limits2015` DISABLE KEYS */;
 
-INSERT INTO `limits2015` (`accNo`, `t1limit`, `t2limit`, `t3limit`)
+INSERT INTO `limits2015` (`accNo`, `t1limit`, `t2limit`, `t3limit`, `t4limit`)
 VALUES
-	('200328','83000','91000',NULL),
-	('201527','105000','111000',NULL),
-	('136826','94000','101000',NULL),
-	('204587','88000','97000',NULL),
-	('210995','20000','50000',NULL),
-	('161613','20000','35000',NULL),
-	('449552','25000','60000',NULL),
-	('189549','20000','35000',NULL),
-	('449559','20000','37000',NULL),
-	('150255','88000','110000',NULL),
-	('571041','100000','125000',NULL),
-	('196806','145000','160000',NULL),
-	('100101','20000','35000',NULL),
-	('209276','20000','35000',NULL),
-	('574736','30000','50000',NULL),
-	('800081','20000','45000',NULL),
-	('115205','30000','50000',NULL),
-	('115633','115000','137000',NULL),
-	('202124','70000','79000',NULL),
-	('221065','300000','330000',NULL),
-	('134159','75000','100000',NULL),
-	('221308','110000','150000',NULL),
-	('245398','40000','60000',NULL),
-	('221646','50000','65000',NULL),
-	('155309','60000','80000',NULL),
-	('130420','70000','100000',NULL),
-	('176726','75000','100000',NULL),
-	('221531','100000','150000',NULL),
-	('221585','125000','150000',NULL),
-	('222534','100000','125000',NULL),
-	('197609','65000','125000',NULL),
-	('178539','300000','330000',NULL),
-	('141154','30000','40000',NULL),
-	('113235','25000','35000',NULL),
-	('122552','111000','130000',NULL),
-	('203216','150000','200000',NULL),
-	('159234','38000','44000',NULL),
-	('140166','20000','38000',NULL),
-	('209716','25000','50000',NULL),
-	('150957','80000','100000',NULL),
-	('171087','137000','155000',NULL),
-	('171246','66000','73000',NULL),
-	('171442','74000','87000',NULL),
-	('119273','100000','150000',NULL),
-	('607963','200000','250000',NULL),
-	('115309','49000','73000',NULL),
-	('276809','24000','35000',NULL),
-	('133536','45000','52000',NULL),
-	('120786','220000','253000',NULL),
-	('130236','130000','151000',NULL),
-	('103372','172000','319000',NULL),
-	('133524','39000','110000',NULL),
-	('275826','95000','179000',NULL),
-	('749828','190000','257000',NULL),
-	('187735','49000','98000',NULL),
-	('757943','32000','92000',NULL),
-	('209432','25000','35000',NULL),
-	('208031','25000','39000',NULL),
-	('213441','25000','40000',NULL),
-	('212014','23000','40000',NULL),
-	('138190','201000','272000',NULL);
+	('200328','83000','91000',NULL,NULL),
+	('201527','105000','111000',NULL,NULL),
+	('136826','94000','101000',NULL,NULL),
+	('204587','88000','97000','10200',NULL),
+	('210995','20000','50000','70000',NULL),
+	('161613','20000','35000',NULL,NULL),
+	('449552','25000','60000',NULL,NULL),
+	('189549','20000','35000',NULL,NULL),
+	('449559','20000','37000',NULL,NULL),
+	('150255','88000','110000',NULL,NULL),
+	('571041','100000','125000',NULL,NULL),
+	('196806','145000','160000',NULL,NULL),
+	('100101','20000','35000',NULL,NULL),
+	('209276','20000','35000',NULL,NULL),
+	('574736','30000','50000',NULL,NULL),
+	('800081','20000','45000',NULL,NULL),
+	('115205','30000','50000',NULL,NULL),
+	('115633','115000','137000',NULL,NULL),
+	('202124','70000','79000',NULL,NULL),
+	('221065','300000','330000',NULL,NULL),
+	('134159','75000','100000',NULL,NULL),
+	('221308','110000','150000',NULL,NULL),
+	('245398','40000','60000',NULL,NULL),
+	('221646','50000','65000',NULL,NULL),
+	('155309','60000','80000',NULL,NULL),
+	('130420','70000','100000',NULL,NULL),
+	('176726','75000','100000',NULL,NULL),
+	('221531','100000','150000',NULL,NULL),
+	('221585','125000','150000',NULL,NULL),
+	('222534','100000','125000',NULL,NULL),
+	('197609','65000','125000',NULL,NULL),
+	('178539','300000','330000',NULL,NULL),
+	('141154','30000','40000',NULL,NULL),
+	('113235','25000','35000',NULL,NULL),
+	('122552','111000','130000',NULL,NULL),
+	('203216','150000','200000',NULL,NULL),
+	('159234','38000','44000',NULL,NULL),
+	('140166','20000','38000',NULL,NULL),
+	('209716','25000','50000',NULL,NULL),
+	('150957','80000','100000',NULL,NULL),
+	('171087','137000','155000',NULL,NULL),
+	('171246','66000','73000',NULL,NULL),
+	('171442','74000','87000',NULL,NULL),
+	('119273','100000','150000',NULL,NULL),
+	('607963','200000','250000',NULL,NULL),
+	('115309','49000','73000',NULL,NULL),
+	('276809','24000','35000',NULL,NULL),
+	('133536','45000','52000',NULL,NULL),
+	('120786','220000','253000',NULL,NULL),
+	('130236','130000','151000',NULL,NULL),
+	('103372','172000','319000',NULL,NULL),
+	('133524','39000','110000',NULL,NULL),
+	('275826','95000','179000',NULL,NULL),
+	('749828','190000','257000',NULL,NULL),
+	('187735','49000','98000',NULL,NULL),
+	('757943','32000','92000',NULL,NULL),
+	('209432','25000','35000',NULL,NULL),
+	('208031','25000','39000',NULL,NULL),
+	('213441','25000','40000',NULL,NULL),
+	('212014','23000','40000',NULL,NULL),
+	('138190','201000','272000',NULL,NULL),
+	('','',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `limits2015` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -242,16 +244,16 @@ LOCK TABLES `promotions2015` WRITE;
 
 INSERT INTO `promotions2015` (`id`, `title`, `thumb`, `image1`, `image2`, `image3`, `image4`, `image5`, `image6`, `desc`, `region`, `tier`)
 VALUES
-	(1,'3 Night City Break - Reykjavik','/images/thumb/reykavik.jpg','/images/promotions/reykavik.jpg',NULL,NULL,NULL,NULL,NULL,'See the beautiful city of Reykjavik with this trip to Iceland for two people to include return flights from Heathrow, accommodation for 3 nights including breakfast in a centrally located Hotel.<BR /><BR />\nReward includes:<ul>\n<li>Package for two people</li>\n<li>Return Flights from Heathrow airport</li>\n<li>Return airport transfers in Iceland</li>\n<li>Hotel accommodation at centrally located Hotel including breakfast for three nights</li>\n</ul>',31,1),
-	(2,'3 Night Trip to Paris','/images/thumb/paris.jpg','/images/promotions/paris.jpg',NULL,NULL,NULL,NULL,NULL,'Visit the city of love with this trip to Paris for two people to include return flights, accommodation for three nights in a 4* Hotel including breakfast along with a prestigious dinner cruise on the famous Bateaux, complementing the spectacular sights of Paris.\n<BR /><Br />Reward includes:<ul>	\n<li>Package for two people</li>\n<li>Return Flights </li>\n<li>Return airport transfers in Paris</li>\n<li>4* Hotel accommodation including breakfast for three nights</li>\n<li>Bateaux Dinner Cruise </li>\n</ul>',31,1),
-	(3,'Alton Towers - Enchanted Village','/images/thumb/altontowers.jpg','/images/promotions/alton.jpg',NULL,NULL,NULL,NULL,NULL,'Enjoy overnight accommodation at the Enchanted Village to include breakfast at Alton Towers to include Theme Park access for two days along with allocation money for lunch and dinner.\n<BR /><BR />Reward includes:<ul>	\n<li>Package for four people - 2 Adults and 2 Children (11 & under)</li>\n<li>Overnight Accommodation in the Enchanted Village to include breakfast</li>\n<li>Theme Park Access for 2 days </li>\n<li>Credit for lunch and dinner</li>\n</ul>',31,1),
-	(4,'Twickenham - Six Nations','/images/thumb/twickenham.jpg','/images/promotions/twickenham.jpg',NULL,NULL,NULL,NULL,NULL,'Take in the extraordinary atmosphere of England playing Wales at Twickenham in one of the biggest games of the Six Nations. Enjoy a hospitality day to include all food and drink for the day along with top match seats to watch the game. Overnight accommodation in a 4* Hotel near Twickenham is also included in this reward.\n<BR /><BR />Reward includes:\n<ul>\n<li>Package for 2 people</li>\n<li>Overnight Accommodation in 4* Hotel near Twickenham</li>\n<li>Full hospitality day for England v Wales Six Nations Match</li>\n</ul>',31,1),
-	(5,'Cheltenham Gold Cup Day','/images/thumb/cheltenham.jpg','/images/promotions/cheltenham.jpg',NULL,NULL,NULL,NULL,NULL,'Enjoy one of the most prestigious and famous horse racing events in the world with a hospitality day for 4 people at the Cheltenham Gold Cup Day. A superb glass box hospitality facility overlooking the final fences of the finishing straight will make sure you miss none of the action.\n<BR /><BR/>Reward includes:	\n<ul>\n<li>Package for 4 people</li>\n<li>Glass Box hospitality day for the Gold Cup Day at Cheltenham National Hunt Festival</li>\n</ul>',31,1),
-	(114,'British Grand Prix - Silverstone','/images/thumb/grandprix.jpg','/images/promotions/grandprix.jpg',NULL,NULL,NULL,NULL,NULL,'Enjoy a full hospitality day at the British Grand Prix along with two nights accommodation including breakfast at a 4* Hotel near to Silverstone. \n<br/><br/>Reward includes:\n<ul>\n<li>Package for two people</li>\n<li>Full hospitality day for British Grand Prix</li>\n<li>Overnight Accommodation at 4* Hotel including breakfast for two nights</li>\n</ul>',31,2),
-	(115,'4 Nights in Las Vegas','/images/thumb/lasvegas.jpg','/images/promotions/vegas.jpg',NULL,NULL,NULL,NULL,NULL,'The neon lights of the Las Vegas strip are a must see. With the extravagant hotels, casinos and amazing restaurants there is so much to do and enjoy in Las Vegas. This reward is for 2 people and includes return flights and airport transfers including accommodation for 4 nights in a 4* Las Vegas Hotel.\n<br /><br />Reward includes:\n<ul>\n<li>Package for two people </li>\n<li>Return Flights </li>\n<li>Return airport transfers in Las Vegas</li>\n<li>4* Hotel accommodation including breakfast for four nights</li>\n</ul>',31,2),
-	(116,'Wimbledon Tennis - Mens Final','/images/thumb/wimbledon.jpg','/images/promotions/wimbledon.jpg',NULL,NULL,NULL,NULL,NULL,'Experience one of the most prestigious events of the sporting calendar - The Wimbledon Tennis Championships - enjoy strawberries and cream with a glass of Pimm\'s whilst watching the world\'s top class tennis players with your two tickets on Centre Court. With the retracting roof built on centre court in 2009, your Wimbledon experience is guaranteed except the optional cream!!\n<br /><br />Reward includes:<ul>\n<li>Package for two people</li>\n<li>Centre Court Tickets with Hospitality for Men\'s Final</li>\n<li>Overnight Accommodation at 4* Hotel including breakfast</li>\n</ul>',31,2),
-	(117,'7 Nights Centre Parcs - Longleat','/images/thumb/centreparcs.jpg','/images/promotions/centerparcs.jpg',NULL,NULL,NULL,NULL,NULL,'Make the most of this superb family treat with a 7 night stay at an Executive Lodge at Centre Parcs, Longleat. Relax, unwind and make the activities the venue offers. Reward is for 4 people and includes two vouchers to use at the onsite spa facilities along with 500 pounds worth of spending money.\n<br /><br />Reward Includes:<ul>\n<li>Package for four people</li>\n<li>7 Nights in an Executive Lodge</li>\n<li>2 Spa Day Vouchers</li>\n<li>500 pounds worth of spending money</li>\n</ul>',31,2),
-	(118,'The Ice Hotel - Sweden','/images/thumb/icehotel.jpg','/images/promotions/icehotel.jpg',NULL,NULL,NULL,NULL,NULL,'One of the most fascinating and astonishing places in the world, enjoy a 3 night trip to the Ice Hotel in Sweden to include return flights and transfers, accommodation at the Ice Hotel to include 1 night in an Art Suite (cold room). The reward also includes a Northern Lights Snowmobiling Tour including dinner at a wilderness hut.\n<br /><br />Reward includes:\n<ul>\n<li>Package for two people</li>\n<li>Return Flights</li>\n<li>Return airport transfers in Sweden</li>\n<li>Accommodation including breakfast for three nights</li>\n<li>Snowmobiling Northern Lights Tour</li>\n</ul>',31,2);
+	(1,'3 Night City Break - Reykjavik','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'See the beautiful city of Reykjavik with this trip to Iceland for two people to include return flights from Heathrow, accommodation for 3 nights including breakfast in a centrally located Hotel.<BR /><BR />\nReward includes:<ul>\n<li>Package for two people</li>\n<li>Return Flights from Heathrow airport</li>\n<li>Return airport transfers in Iceland</li>\n<li>Hotel accommodation at centrally located Hotel including breakfast for three nights</li>\n</ul>',31,1),
+	(2,'3 Night Trip to Paris','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'Visit the city of love with this trip to Paris for two people to include return flights, accommodation for three nights in a 4* Hotel including breakfast along with a prestigious dinner cruise on the famous Bateaux, complementing the spectacular sights of Paris.\n<BR /><Br />Reward includes:<ul>	\n<li>Package for two people</li>\n<li>Return Flights </li>\n<li>Return airport transfers in Paris</li>\n<li>4* Hotel accommodation including breakfast for three nights</li>\n<li>Bateaux Dinner Cruise </li>\n</ul>',31,1),
+	(3,'Alton Towers - Enchanted Village','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'Enjoy overnight accommodation at the Enchanted Village to include breakfast at Alton Towers to include Theme Park access for two days along with allocation money for lunch and dinner.\n<BR /><BR />Reward includes:<ul>	\n<li>Package for four people - 2 Adults and 2 Children (11 & under)</li>\n<li>Overnight Accommodation in the Enchanted Village to include breakfast</li>\n<li>Theme Park Access for 2 days </li>\n<li>Credit for lunch and dinner</li>\n</ul>',31,1),
+	(4,'Twickenham - Six Nations','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'Take in the extraordinary atmosphere of England playing Wales at Twickenham in one of the biggest games of the Six Nations. Enjoy a hospitality day to include all food and drink for the day along with top match seats to watch the game. Overnight accommodation in a 4* Hotel near Twickenham is also included in this reward.\n<BR /><BR />Reward includes:\n<ul>\n<li>Package for 2 people</li>\n<li>Overnight Accommodation in 4* Hotel near Twickenham</li>\n<li>Full hospitality day for England v Wales Six Nations Match</li>\n</ul>',31,1),
+	(5,'Cheltenham Gold Cup Day','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'Enjoy one of the most prestigious and famous horse racing events in the world with a hospitality day for 4 people at the Cheltenham Gold Cup Day. A superb glass box hospitality facility overlooking the final fences of the finishing straight will make sure you miss none of the action.\n<BR /><BR/>Reward includes:	\n<ul>\n<li>Package for 4 people</li>\n<li>Glass Box hospitality day for the Gold Cup Day at Cheltenham National Hunt Festival</li>\n</ul>',31,1),
+	(114,'British Grand Prix - Silverstone','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'Enjoy a full hospitality day at the British Grand Prix along with two night’s accommodation including breakfast at a 4* Hotel near to Silverstone. \n<br/><br/>Reward includes:\n<ul>\n<li>Package for two people</li>\n<li>Full hospitality day for British Grand Prix</li>\n<li>Overnight Accommodation at 4* Hotel including breakfast for two nights</li>\n</ul>',31,2),
+	(115,'4 Nights in Las Vegas','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'The neon lights of the Las Vegas strip are a must see. With the extravagant hotels, casinos and amazing restaurants there is so much to do and enjoy in Las Vegas. This reward is for 2 people and includes return flights and airport transfers including accommodation for 4 nights in a 4* Las Vegas Hotel.\n<br /><br />Reward includes:\n<ul>\n<li>Package for two people </li>\n<li>Return Flights </li>\n<li>Return airport transfers in Las Vegas</li>\n<li>4* Hotel accommodation including breakfast for four nights</li>\n</ul>',31,2),
+	(116,'Wimbledon Tennis - Mens Final','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'Experience one of the most prestigious events of the sporting calendar - The Wimbledon Tennis Championships - enjoy strawberries and cream with a glass of Pimm\'s whilst watching the world\'s top class tennis players with your two tickets on Centre Court. With the retracting roof built on centre court in 2009, your Wimbledon experience is guaranteed except the optional cream!!\n<br /><br />Reward includes:<ul>\n<li>Package for two people</li>\n<li>Centre Court Tickets with Hospitality for Men\'s Final</li>\n<li>Overnight Accommodation at 4* Hotel including breakfast</li>\n</ul>',31,2),
+	(117,'7 Nights Centre Parcs - Longleat','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'Make the most of this superb family treat with a 7 night stay at an Executive Lodge at Centre Parcs, Longleat. Relax, unwind and make the activities the venue offers. Reward is for 4 people and includes two vouchers to use at the onsite spa facilities along with 500 pounds worth of spending money.\n<br /><br />Reward Includes:<ul>\n<li>Package for four people</li>\n<li>7 Nights in an Executive Lodge</li>\n<li>2 Spa Day Vouchers</li>\n<li>500 pounds worth of spending money</li>\n</ul>',31,2),
+	(118,'The Ice Hotel - Sweden','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg','http://cdn.earthporm.com/wp-content/uploads/2014/07/cute-bunnies-tongues-6.jpg',NULL,NULL,NULL,NULL,NULL,'One of the most fascinating and astonishing places in the world, enjoy a 3 night trip to the Ice Hotel in Sweden to include return flights and transfers, accommodation at the Ice Hotel to include 1 night in an Art Suite (cold room). The reward also includes a Northern Lights Snowmobiling Tour including dinner at a wilderness hut.\n<br /><br />Reward includes:\n<ul>\n<li>Package for two people</li>\n<li>Return Flights</li>\n<li>Return airport transfers in Sweden</li>\n<li>Accommodation including breakfast for three nights</li>\n<li>Snowmobiling Northern Lights Tour</li>\n</ul>',31,3);
 
 /*!40000 ALTER TABLE `promotions2015` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -455,6 +457,33 @@ VALUES
 	(1411,'Mike','emailme@mikeoram.co.uk',NULL,NULL,NULL,'Test','test','test',NULL,NULL,'BS311EW',31,'','2456465245','34513451',NULL,'1129542ca0706f0227dde25e63c82c867c00fc93',1,5,NULL,'2016-07-25 20:09:08',2016,1);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table userTiers
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `userTiers`;
+
+CREATE TABLE `userTiers` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL,
+  `tier` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `userTiers` WRITE;
+/*!40000 ALTER TABLE `userTiers` DISABLE KEYS */;
+
+INSERT INTO `userTiers` (`id`, `uid`, `tier`)
+VALUES
+	(1,1353,1),
+	(2,1353,2),
+	(3,1353,3),
+	(4,1352,1),
+	(5,1352,3);
+
+/*!40000 ALTER TABLE `userTiers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
