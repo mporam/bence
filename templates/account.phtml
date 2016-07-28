@@ -120,6 +120,29 @@ $user = $data['user'];
         <?php } ?>
     </div>
 
+    <?php if (!empty($data['promos'])) { ?>
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Promotions</h4>
+            </div>
+            <?php
+            $tier = 0;
+            foreach($data['promos'] as $promo) {
+                if ($promo['tier'] > $tier) {
+                    $tier = $promo['tier'];?>
+                    <div class="col-xs-12">
+                        <h4>Tier <?php echo $promo['tier']; ?></h4>
+                    </div>
+                <?php } ?>
+                <div class="col-md-4">
+                    <div class="feature-box" style="background-image: url('<?php echo $promo['thumb'] ?>');"> <?php // @todo display if tier is locked and show bg image ?>
+                        <h3><?php echo $promo['title']; ?></h3>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+    <?php } ?>
+
     <?php if ($_SESSION['access'] > 1) { ?>
         <div class="row">
             <div class="col-xs-12">

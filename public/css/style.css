@@ -143,6 +143,7 @@ main b {
 
 .feature-box {
     background-color: #9A1A31;
+    background-size: cover;
     height: 160px;
     margin-top: 20px;
     margin-bottom: 5px;
