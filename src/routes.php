@@ -105,7 +105,7 @@ $app->get('/account[/]', function ($request, $response, $args) {
 
     if (!empty($get['uid']) && $_SESSION['access'] > 1) {
         if (empty($_SESSION['breadcrumbs'])) {
-            $_SESSION['breadcrumbs'] = $get['uid'];
+            $_SESSION['breadcrumbs'][] = $get['uid'];
         }
         $args['breadcrumbs'] += $breadcrumbs->getAccountBreadcrumbs($user, $get['uid'], $_SESSION['breadcrumbs']);
 
