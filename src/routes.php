@@ -220,3 +220,13 @@ $app->post('/account/import/complete', function ($request, $response, $args) {
     $args['db'] = $this->db;
     return $this->renderer->render($response, 'import_complete.phtml', $args);
 });
+
+$app->get('/account/users', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/users' => 'User List'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'find_user_list.phtml', $args);
+});
