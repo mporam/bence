@@ -103,8 +103,6 @@ $app->get('/account', function ($request, $response, $args) {
     $args['user'] = $_SESSION;
 
     if (!empty($get['uid']) && $_SESSION['access'] > 1) {
-        //@todo: will have to account for multiple user levels
-
         if (empty($_SESSION['breadcrumbs'])) {
             $_SESSION['breadcrumbs'] = $get['uid'];
         }
@@ -112,6 +110,11 @@ $app->get('/account', function ($request, $response, $args) {
 
         $permissions = $user->getUserPermissions($get['uid']);
         $args['user'] = $user->getUserWithId($get['uid']);
+
+        // prevent users seeeing accounts higher than them
+        if ($args['user']['access'] > $_SESSION['access'] && !in_array($get['uid'], $_SESSION['permissions'])) {
+            return $response->withStatus(200)->withHeader('Location', '/account');
+        }
     }
 
     if (!empty($permissions) && $_SESSION['access'] > 1) {
