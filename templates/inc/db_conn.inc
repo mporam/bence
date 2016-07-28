@@ -38,4 +38,3 @@ $con = $data['db'];
 //$query -> execute();
 //$regions = $query->fetchAll();
 
-?>
