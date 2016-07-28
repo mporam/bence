@@ -89,7 +89,6 @@ $app->get('/account[/]', function ($request, $response, $args) {
     $stat = new \Bence\Stat($this->db);
     $user = new \Bence\User($this->db);
     $breadcrumbs = new \Bence\Breadcrumbs();
-    $promotions = new \Bence\Promotions($this->db);
 
     $get = $request->getQueryParams();
     $args['stats']['circles'] = '';
@@ -123,6 +122,11 @@ $app->get('/account[/]', function ($request, $response, $args) {
             $args['users'][] = $user->getUserWithId($uid);
         }
     } else if ($args['user']['access'] == 1) {
+
+        $expenses = new \Bence\Expenses($this->db);
+        $args['expenses'] = $expenses->getExpensesByAccNo($args['user']['accNo']);
+
+        $promotions = new \Bence\Promotions($this->db);
         $args['promos'] = $promotions->getPromotionsforUser($args['user']['id']);
     }
     return $this->renderer->render($response, 'account.phtml', $args);
