@@ -10,7 +10,7 @@ $app->get('/', function ($request, $response, $args) {
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
-$app->get('/login', function ($request, $response, $args) {
+$app->get('/login[/]', function ($request, $response, $args) {
     $user = new \Bence\User($this->db);
     if ($user->attemptLogin()) {
         return $response->withStatus(200)->withHeader('Location', '/account');
@@ -21,7 +21,7 @@ $app->get('/login', function ($request, $response, $args) {
 });
 
 
-$app->post('/login', function ($request, $response, $args) {
+$app->post('/login[/]', function ($request, $response, $args) {
     $data = $request->getParsedBody();
     $email = filter_var($data['email'], FILTER_SANITIZE_STRING);
     $password = $data['password'];
@@ -43,7 +43,7 @@ $app->post('/login', function ($request, $response, $args) {
 
 });
 
-$app->get('/logout', function ($request, $response, $args) {
+$app->get('/logout[/]', function ($request, $response, $args) {
     $_SESSION['loggedIn'] = false; // just in case
     $_SESSION = [];
     setcookie(\Bence\User::COOKIENAME);
@@ -52,7 +52,7 @@ $app->get('/logout', function ($request, $response, $args) {
     return $response->withStatus(200)->withHeader('Location', '/');
 });
 
-$app->get('/login/reset', function ($request, $response, $args) {
+$app->get('/login/reset[/]', function ($request, $response, $args) {
     $get = $request->getQueryParams();
     $user = new \Bence\User($this->db);
     if (!empty($get['user'])) {
@@ -64,7 +64,7 @@ $app->get('/login/reset', function ($request, $response, $args) {
     return $this->renderer->render($response, 'loginReset.phtml', $args);
 });
 
-$app->post('/login/reset', function ($request, $response, $args) {
+$app->post('/login/reset[/]', function ($request, $response, $args) {
     $post = $request->getParsedBody();
     $get = $request->getQueryParams();
     $user = new Bence\User($this->db);
@@ -85,7 +85,7 @@ $app->post('/login/reset', function ($request, $response, $args) {
     return $this->renderer->render($response, 'loginReset.phtml', $args);
 });
 
-$app->get('/account', function ($request, $response, $args) {
+$app->get('/account[/]', function ($request, $response, $args) {
     $stat = new \Bence\Stat($this->db);
     $user = new \Bence\User($this->db);
     $breadcrumbs = new \Bence\Breadcrumbs();
@@ -125,7 +125,7 @@ $app->get('/account', function ($request, $response, $args) {
     return $this->renderer->render($response, 'account.phtml', $args);
 });
 
-$app->get('/account/update', function ($request, $response, $args) {
+$app->get('/account/update[/]', function ($request, $response, $args) {
     $args['loggedIn'] = $_SESSION['loggedIn'];
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/update'=>'Update'];
 
@@ -133,7 +133,7 @@ $app->get('/account/update', function ($request, $response, $args) {
     return $this->renderer->render($response, 'user.phtml', $args);
 });
 
-$app->post('/account/update', function ($request, $response, $args) {
+$app->post('/account/update[/]', function ($request, $response, $args) {
     $post = $request->getParsedBody();
     $user = new \Bence\User($this->db);
 
@@ -161,13 +161,13 @@ $app->post('/account/update', function ($request, $response, $args) {
     return $this->renderer->render($response, 'user.phtml', $args);
 });
 
-$app->get('/account/notifications', function ($request, $response, $args) {
+$app->get('/account/notifications[/]', function ($request, $response, $args) {
     $args['breadcrumbs'] = ['/' => 'Home', '/account' => 'Account', '/account/notifications' => 'Notifications'];
     $args['db'] = $this->db;
     return $this->renderer->render($response, 'notifications.phtml', $args);
 });
 
-$app->post('/account/notifications/email', function ($request, $response, $args) {
+$app->post('/account/notifications/email[/]', function ($request, $response, $args) {
     $args['breadcrumbs'] = [
         '/' => 'Home',
         '/account' => 'Account',
@@ -178,7 +178,7 @@ $app->post('/account/notifications/email', function ($request, $response, $args)
     return $this->renderer->render($response, 'email.phtml', $args);
 });
 
-$app->post('/account/notifications/send', function ($request, $response, $args) {
+$app->post('/account/notifications/send[/]', function ($request, $response, $args) {
     $args['breadcrumbs'] = [
         '/' => 'Home',
         '/account' => 'Account',
@@ -189,7 +189,7 @@ $app->post('/account/notifications/send', function ($request, $response, $args) 
     return $this->renderer->render($response, 'send.phtml', $args);
 });
 
-$app->get('/account/notifications/complete', function ($request, $response, $args) {
+$app->get('/account/notifications/complete[/]', function ($request, $response, $args) {
     $args['breadcrumbs'] = [
         '/' => 'Home',
         '/account' => 'Account',
@@ -200,7 +200,7 @@ $app->get('/account/notifications/complete', function ($request, $response, $arg
     return $this->renderer->render($response, 'complete.phtml', $args);
 });
 
-$app->get('/account/import', function ($request, $response, $args) {
+$app->get('/account/import[/]', function ($request, $response, $args) {
     $args['breadcrumbs'] = [
         '/' => 'Home',
         '/account' => 'Account',
@@ -210,7 +210,7 @@ $app->get('/account/import', function ($request, $response, $args) {
     return $this->renderer->render($response, 'import.phtml', $args);
 });
 
-$app->post('/account/import/map', function ($request, $response, $args) {
+$app->post('/account/import/map[/]', function ($request, $response, $args) {
     $args['breadcrumbs'] = [
         '/' => 'Home',
         '/account' => 'Account',
@@ -221,7 +221,7 @@ $app->post('/account/import/map', function ($request, $response, $args) {
     return $this->renderer->render($response, 'map.phtml', $args);
 });
 
-$app->post('/account/import/complete', function ($request, $response, $args) {
+$app->post('/account/import/complete[/]', function ($request, $response, $args) {
     $args['breadcrumbs'] = [
         '/' => 'Home',
         '/account' => 'Account',
