@@ -135,6 +135,15 @@ main h5:after {
     margin-eft: -5px;
 }
 
+main .title h4 {
+    cursor: pointer;
+}
+
+main .title h4 .glyphicon {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
 main b {
     color: #9A1A31;
 }
