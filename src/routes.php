@@ -104,7 +104,7 @@ $app->get('/account[/]', function ($request, $response, $args) {
 
     if (!empty($get['uid']) && $_SESSION['access'] > 1) {
         if (empty($_SESSION['breadcrumbs'])) {
-            $_SESSION['breadcrumbs'] = $get['uid'];
+            $_SESSION['breadcrumbs'][] = $get['uid'];
         }
         $args['breadcrumbs'] += $breadcrumbs->getAccountBreadcrumbs($user, $get['uid'], $_SESSION['breadcrumbs']);
 
@@ -237,4 +237,14 @@ $app->post('/account/import/complete[/]', function ($request, $response, $args) 
     ];
     $args['db'] = $this->db;
     return $this->renderer->render($response, 'import_complete.phtml', $args);
+});
+
+$app->get('/account/users', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/account' => 'Account',
+        '/account/users' => 'User List'
+    ];
+    $args['db'] = $this->db;
+    return $this->renderer->render($response, 'find_user_list.phtml', $args);
 });

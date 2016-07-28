@@ -177,6 +177,28 @@ main b {
     padding-bottom: 20px;
 }
 
+/*------------------ Tables */
+
+tr:first-child(td) {
+    padding-left: 3px;
+}
+
+td.cell {
+    text-align: center;
+}
+
+td.activated.cell {
+    background-color: #638b58;
+    border-bottom: #557849 solid 1px;
+    color: #a5b6a7;
+}
+
+td.inactive.cell {
+    background-color: #843534;
+    border-bottom: #773a3a solid 1px;
+    color: #b6878b;
+}
+
 /*------------------ Forms */
 
 label {
@@ -200,6 +222,10 @@ label {
     border-color: #9A1A31;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(166,29,53,.6);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(166,29,53,.6);
+}
+
+#searchInput {
+    border: 2px solid #C0C0C0;
 }
 
 /*------------------ Buttons */
