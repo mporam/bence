@@ -51,8 +51,11 @@ foreach($_SESSION['import'] as $line) {
 
     $updates = rtrim($updates, ', ');
 
+    // I think perhaps £ are being included in the CSVs, this will strip them out but leave the query intact
+    $vals = preg_replace('/[^0-9`\' ,]+/', '', $vals);
 
     $sql = "INSERT INTO `expenses2015` ($cols) VALUES ($vals) ON DUPLICATE KEY UPDATE $updates;";
+
 
     // for dev mode
     //echo 'running query: ' . $sql;
