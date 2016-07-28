@@ -260,6 +260,17 @@ label {
     float: left;
 }
 
+/*------------------ ACCOUNT PAGE ------------------*/
+
+.account-details:last-child {
+    height: inherit;
+}
+
+.account-details {
+    overflow: hidden;
+    height: 30px;
+}
+
 /*------------------ FOOTER ------------------*/
 footer {
     background-color: #2E2E2C;
@@ -280,7 +291,6 @@ footer nav, footer .metadata {
     margin: 30px auto 20px auto;
     padding-bottom: 20px;
 }
-
 
 
 /*------------------ Media Queries ------------------*/

@@ -21,71 +21,64 @@ $user = $data['user'];
     </div>
 
     <div class="row">
-        <div class="col-xs-12">
-            <h3>Account Details
-                <?php if ($_SESSION['id'] == $user['id'] || $_SESSION['access'] > 1) { // only allow edit if your account or admin ?>
-                    <a href="/account/update"><span class="glyphicon glyphicon-pencil"></span></a>
-                <?php } ?>
-            </h3>
+
+        <div class="col-xs-12 col-md-6">
+            
+            <div class="col-xs-4 account-details align-right">
+                Full Name
+            </div>
+            <div class="col-xs-8 account-details">
+                <?php echo($user['name'] ?: '--'); ?>
+            </div>
+            <div class="col-xs-4 account-details align-right">
+                Company Name
+            </div>
+            <div class="col-xs-8 account-details">
+                <?php echo($user['company'] ?: '--'); ?>
+            </div>
+            <div class="col-xs-4 account-details align-right">
+                Account Number
+            </div>
+            <div class="col-xs-8 account-details">
+                <?php echo($user['accNo'] ?: '--'); ?>
+            </div>
+            <div class="col-xs-4 account-details align-right">
+                Phone Number
+            </div>
+            <div class="col-xs-8 account-details">
+                <?php echo($user['phone'] ?: '--'); ?>
+            </div>
+            <div class="col-xs-4 account-details align-right">
+                Mobile Number
+            </div>
+            <div class="col-xs-8 account-details">
+                <?php echo($user['mobile'] ?: '--'); ?>
+            </div>
+            <div class="col-xs-4 account-details align-right">
+                Email address
+            </div>
+            <div class="col-xs-8 account-details">
+                <?php echo($user['email'] ?: '--'); ?>
+            </div>
         </div>
 
-        <div class="col-xs-12">
-            <div class="col-md-6">
-                <div class="col-md-4 align-right">
-                    <p>Full Name: </p>
-                </div>
-                <div class="col-md-8">
-                    <p><?php echo($user['name'] ?: '--'); ?></p>
-                </div>
-                <div class="col-md-4 align-right">
-                    <p>Company Name:</p>
-                </div>
-                <div class="col-md-8">
-                    <p><?php echo($user['company'] ?: '--'); ?></p>
-                </div>
-                <div class="col-md-4 align-right">
-                    <p>Account Number:</p>
-                </div>
-                <div class="col-md-8">
-                    <p><?php echo($user['accNo'] ?: '--'); ?></p>
-                </div>
-                <div class="col-md-4 align-right">
-                    <p>Phone Number: </p>
-                </div>
-                <div class="col-md-8">
-                    <p><?php echo($user['phone'] ?: '--'); ?></p>
-                </div>
-                <div class="col-md-4 align-right">
-                    <p>Mobile Number: </p>
-                </div>
-                <div class="col-md-8">
-                    <p><?php echo($user['mobile'] ?: '--'); ?></p>
-                </div>
-                <div class="col-md-4 align-right">
-                    <p>Email address: </p>
-                </div>
-                <div class="col-md-8">
-                    <p><?php echo($user['email'] ?: '--'); ?></p>
-                </div>
+        <div class="col-xs-12 col-md-6">
+            <div class="col-xs-4 account-details align-right">
+                Region
             </div>
+            <div class="col-xs-8 account-details">
+                <?php echo($user['r_name'] ?: '--'); ?>
+            </div>
+            <div class="col-xs-4 account-details align-right">
+                Address
+            </div>
+            <div class="col-xs-8 account-details">
+                <?php echo($user['address1'] ?: '--'); ?>
+                <?php echo '<div>' . $user['address2'] . '</div>'; ?>
+                <?php echo '<div>' . $user['address3'] . '</div>'; ?>
+                <?php echo '<div>' . $user['address4'] . '</div>'; ?>
+                <?php echo($user['postcode'] ?: '--'); ?>
 
-            <div class="col-md-6">
-                <div class="col-md-4 align-right">
-                    <p>Region:</p>
-                </div>
-                <div class="col-md-8">
-                    <p><?php echo($user['r_name'] ?: '--'); ?></p>
-                </div>
-                <div class="col-md-4 align-right">
-                    <p>Address:</p>
-                </div>
-                <div class="col-md-8">
-                    <p><?php echo($user['address1'] ?: '--'); ?></p>
-                    <?php echo '<p>' . $user['address2'] . '</p>'; ?>
-                    <?php echo '<p>' . $user['address3'] . '</p>'; ?>
-                    <?php echo '<p>' . $user['address4'] . '</p>'; ?>
-                    <p><?php echo($user['postcode'] ?: '--'); ?></p>
-                </div>
             </div>
         </div>
     </div>
