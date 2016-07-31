@@ -3,3 +3,4 @@ composer.lock
 .DS_Store
 .idea
 src/import_data/*.csv
+src/settings.php
