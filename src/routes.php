@@ -134,7 +134,11 @@ $app->get('/account[/]', function ($request, $response, $args) {
         $args['expenses'] = $expenses->getExpensesByAccNo($args['user']['accNo']);
 
         $promotions = new \Bence\Promotions($this->db);
-        $args['promos'] = $promotions->getPromotionsForUser($args['user']['id']);
+
+        $args['promos'] = $promotions->getPromotionsforUser($args['user']['id']);
+        
+        $availableTiers = new \Bence\Limits($this->db);
+        $args['tiers'] = $availableTiers->getAvailableTiersForUser($args['user']['accNo']);
     }
     return $this->renderer->render($response, 'account.phtml', $args);
 });
