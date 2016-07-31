@@ -129,6 +129,12 @@ class User
         return $query->execute();
     }
 
+    public function getTotalUsers() {
+        $query = $this->db->prepare("SELECT count(id) FROM users WHERE `access` = 1");
+        $query->execute();
+        return $query->fetch()[0];
+    }
+
     public function update($uid, $user) {
         $name = $user['name'];
         $email = $user['email'];

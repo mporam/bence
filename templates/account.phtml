@@ -177,12 +177,11 @@ $user = $data['user'];
             <div class="col-xs-12 title">
                 <h4>Stats</h4>
             </div>
-            <div class="col-md-6">
-                <?php echo $data['stats']['circles']; ?>
-            </div>
-            <div class="col-md-6">
-                <?php echo $data['stats']['info']; ?>
-            </div>
+            <?php foreach($data['stats']['circles'] as $stat) {
+                echo '<div class="col-md-3 col-xs-6">';
+                echo $stat;
+                echo '</div>';
+            } ?>
         </div>
     <?php } ?>
 </main>

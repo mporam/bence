@@ -86,18 +86,18 @@ $app->post('/login/reset[/]', function ($request, $response, $args) {
 });
 
 $app->get('/account[/]', function ($request, $response, $args) {
-    $stat = new \Bence\Stat($this->db);
     $user = new \Bence\User($this->db);
+    $stat = new \Bence\Stat($this->db, $user->getTotalUsers());
     $breadcrumbs = new \Bence\Breadcrumbs();
 
     $get = $request->getQueryParams();
-    $args['stats']['circles'] = '';
-    $args['stats']['circles'] .= $stat->getStatCircle('test', 82);
-    $args['stats']['circles'] .= $stat->getStatCircle('test2', 23);
+    $args['stats']['circles'][] = $stat->getStatCircle('stat', 1);
+    $args['stats']['circles'][] = $stat->getStatCircle('stat2', 2);
+    $args['stats']['circles'][] = $stat->getStatCircle('stat3', 3);
+    $args['stats']['circles'][] = $stat->getStatCircle('stat4', 4);
 
     $args['loggedIn'] = $_SESSION['loggedIn'];
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
-    $args['stats']['info'] = $stat->getStatInfo();
 
     $permissions = $_SESSION['permissions'];
     $args['user'] = $_SESSION;
