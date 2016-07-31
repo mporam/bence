@@ -20,7 +20,7 @@ require __DIR__ . '/inc/header.inc';
             <p><?php echo $data['promo']['desc']; ?></p>
 
             <?php // @todo: if (it is unlocked) { ?>
-                <a href="/account/book/<?php echo $data['promo']['id']; ?>" class="btn btn-lg btn-default">Book Now</a>
+                <a href="/account/book/<?php echo $data['promo']['id']; if ($_SESSION['id'] !== $data['uid']) { echo "/?uid=" . $data['uid']; } ?>" class="btn btn-lg btn-default">Book Now</a>
             <?php // } ?>
         </div>
 
