@@ -23,7 +23,7 @@ class Promotions
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function getPromotionsforUser($uid) {
+    public function getPromotionsForUser($uid) {
         $query = $this->db->prepare("
             SELECT * FROM `userTiers`
                 LEFT JOIN `promotions2015`
@@ -43,6 +43,18 @@ class Promotions
 
         $query->execute();
         return $query->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function setPromotionForUser($promo, $uid) {
+        $query = $this->db->prepare("UPDATE users SET `promo`='$promo' WHERE `id`='$uid';");
+
+        try {
+            $query->execute();
+        } catch(\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
 

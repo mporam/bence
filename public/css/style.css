@@ -23,7 +23,8 @@ body {
     border-bottom: 1px solid #9A1A31;
 }
 
-a {
+a,
+strong {
     color: #9A1A31;
 }
 
