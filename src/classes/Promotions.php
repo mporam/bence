@@ -35,5 +35,15 @@ class Promotions
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getPromotionById($pid) {
+        $query = $this->db->prepare("
+            SELECT * FROM `promotions2015`
+                WHERE `id` = $pid;
+        ");
+
+        $query->execute();
+        return $query->fetch(\PDO::FETCH_ASSOC);
+    }
+
 
 }

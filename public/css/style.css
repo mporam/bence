@@ -305,10 +305,11 @@ label {
     cursor: pointer;
 }
 
-/*------------------ Stats */
-.stat {
-    width: 200px;
-    float: left;
+/*------------------ Promos */
+
+.promo-img {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 /*------------------ ACCOUNT PAGE ------------------*/

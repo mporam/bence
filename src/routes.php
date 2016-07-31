@@ -86,18 +86,18 @@ $app->post('/login/reset[/]', function ($request, $response, $args) {
 });
 
 $app->get('/account[/]', function ($request, $response, $args) {
-    $stat = new \Bence\Stat($this->db);
     $user = new \Bence\User($this->db);
+    $stat = new \Bence\Stat($this->db, $user->getTotalUsers());
     $breadcrumbs = new \Bence\Breadcrumbs();
 
     $get = $request->getQueryParams();
-    $args['stats']['circles'] = '';
-    $args['stats']['circles'] .= $stat->getStatCircle('test', 82);
-    $args['stats']['circles'] .= $stat->getStatCircle('test2', 23);
+    $args['stats']['circles'][] = $stat->getStatCircle('stat', 1);
+    $args['stats']['circles'][] = $stat->getStatCircle('stat2', 2);
+    $args['stats']['circles'][] = $stat->getStatCircle('stat3', 3);
+    $args['stats']['circles'][] = $stat->getStatCircle('stat4', 4);
 
     $args['loggedIn'] = $_SESSION['loggedIn'];
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
-    $args['stats']['info'] = $stat->getStatInfo();
 
     $permissions = $_SESSION['permissions'];
     $args['user'] = $_SESSION;
@@ -133,6 +133,21 @@ $app->get('/account[/]', function ($request, $response, $args) {
         $args['tiers'] = $availableTiers->getAvailableTiersForUser($args['user']['accNo']);
     }
     return $this->renderer->render($response, 'account.phtml', $args);
+});
+
+$app->get('/account/promotions/{pid}[/]', function ($request, $response, $args) {
+    $promoId = $args['pid'];
+    $promo = new \Bence\Promotions($this->db);
+    $args['promo'] = $promo->getPromotionById($promoId);
+    $get = $request->getQueryParams();
+    if (!empty($get['uid'])) {
+        $args['uid'] = $get['uid'];
+    }
+    // @todo: has the user unlocked this promo? if not redirect to account page
+    // @todo: breadcrumbs needs the user trail
+    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/promotions/' . $promoId => $args['promo']['title']];
+
+    return $this->renderer->render($response, 'promos.phtml', $args);
 });
 
 $app->get('/account/update[/]', function ($request, $response, $args) {
