@@ -148,7 +148,9 @@ $user = $data['user'];
         </div>
     <?php } ?>
 
-    <?php if (!empty($data['promos'])) { ?>
+    <?php if (!empty($data['promos'])) {
+        $tiers = $data['tiers'];
+        ?>
         <div class="row">
             <div class="col-xs-12 title">
                 <h4>Promotions</h4>
@@ -162,9 +164,15 @@ $user = $data['user'];
                         <h4>Tier <?php echo $promo['tier']; ?></h4>
                     </div>
                 <?php } ?>
-                <div class="col-md-4">
+                <div class="col-xs-12 col-md-4">
                     <div class="feature-box"
-                         style="background-image: url('<?php echo $promo['thumb'] ?>');"> <?php // @todo display if tier is locked ?>
+                         style="background-image: url('<?php echo $promo['thumb'] ?>');">
+                        <?php
+                        if (!$tiers[$promo['tier']]) { ?>
+                        <div class="glyph-house"><span class='glyphicon glyphicon-lock'></span></div>
+                        <?php
+                        }
+                        ?>
                         <h3><?php echo $promo['title']; ?></h3>
                     </div>
                 </div>
