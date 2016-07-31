@@ -102,6 +102,13 @@ $app->get('/account[/]', function ($request, $response, $args) {
     $permissions = $_SESSION['permissions'];
     $args['user'] = $_SESSION;
 
+    if (!empty($get['promo']) && !empty($get['success']) && $get['success'] == 'true') {
+        $promotions = new \Bence\Promotions($this->db);
+        $args['selectedPromo'] = $promotions->getPromotionById($get['promo']);
+    } else if (!empty($get['success']) && $get['success'] == 'false') {
+        $args['selectedPromo'] = $get['promo'];
+    }
+
     if (!empty($get['uid']) && $_SESSION['access'] > 1) {
         if (empty($_SESSION['breadcrumbs'])) {
             $_SESSION['breadcrumbs'][] = $get['uid'];
@@ -127,6 +134,7 @@ $app->get('/account[/]', function ($request, $response, $args) {
         $args['expenses'] = $expenses->getExpensesByAccNo($args['user']['accNo']);
 
         $promotions = new \Bence\Promotions($this->db);
+
         $args['promos'] = $promotions->getPromotionsforUser($args['user']['id']);
         
         $availableTiers = new \Bence\Limits($this->db);
@@ -138,16 +146,110 @@ $app->get('/account[/]', function ($request, $response, $args) {
 $app->get('/account/promotions/{pid}[/]', function ($request, $response, $args) {
     $promoId = $args['pid'];
     $promo = new \Bence\Promotions($this->db);
+    $user = new \Bence\User($this->db);
+    $breadcrumbs = new \Bence\Breadcrumbs();
+
     $args['promo'] = $promo->getPromotionById($promoId);
+
     $get = $request->getQueryParams();
-    if (!empty($get['uid'])) {
-        $args['uid'] = $get['uid'];
-    }
+
     // @todo: has the user unlocked this promo? if not redirect to account page
-    // @todo: breadcrumbs needs the user trail
-    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/promotions/' . $promoId => $args['promo']['title']];
+
+    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account'];
+    if (!empty($get['uid']) && $_SESSION['access'] > 1) {
+        $args['uid'] = $get['uid'];
+
+        if (empty($_SESSION['breadcrumbs'])) {
+            $_SESSION['breadcrumbs'][] = $get['uid'];
+        }
+        $args['breadcrumbs'] += $breadcrumbs->getAccountBreadcrumbs($user, $get['uid'], $_SESSION['breadcrumbs']);
+    }
+
+    $args['breadcrumbs']['/account/promotions/' . $promoId] = $args['promo']['title'];
 
     return $this->renderer->render($response, 'promos.phtml', $args);
+});
+
+$app->get('/account/book/{pid}[/]', function ($request, $response, $args) {
+    $promoId = $args['pid'];
+    $promotions = new \Bence\Promotions($this->db);
+    $users = new \Bence\User($this->db);
+
+    $get = $request->getQueryParams();
+    $uid = $_SESSION['id'];
+    if (!empty($get['uid']) && $_SESSION['access'] > 1) {
+        $uid = $get['uid'];
+    }
+    $user = $users->getUserWithId($uid);
+
+    if ($promotions->setPromotionForUser($promoId, $uid)) {
+        // do stuff
+        $promo = $promotions->getPromotionById($promoId);
+
+        $adminMessage = "Hi Admin,
+
+" . $user['name'] . " has requested their promo: " . $promo['title'] . ".
+
+You can contact them here: " . $user['email'] . "
+
+Company: " . $user['company'] . "
+
+Their contact number is: " . $user['phone'] . "
+
+Their Account number is: " . $user['accNo'] . "
+
+Many thanks,
+
+Bence Rewards Website
+";
+
+        $customerMessage = "Hi " . $user['name'] . ",
+
+You have selected the following promotion:
+" . $promo['title'] . ".
+
+If you would like to change your Reward before the closing date please log into your account and select a different promotion from those available.
+
+We will be in touch after the closing date with further details.
+
+Many thanks,
+
+Bence Rewards
+*PHONE NUMBER*
+*EMAIL*
+";
+
+        require __DIR__ . '/classes/PHPMailer.php';
+
+        $mail = new PHPMailer();
+        $mail->IsSMTP();  // telling the class to use SMTP
+        $mail->Host     = "mailout.one.com"; // SMTP server
+        $mail->SetFrom("no-reply@bence-rewards.co.uk", 'Bence Rewards');
+        $mail->AddAddress('info@bence-rewards.co.uk');
+        $mail->Subject  = 'Promotions Booking';
+        $mail->Body     = $adminMessage;
+        $mail->WordWrap = 78;
+
+        $Cmail = new PHPMailer();
+        $Cmail->IsSMTP();  // telling the class to use SMTP
+        $Cmail->Host     = "mailout.one.com"; // SMTP server
+        $Cmail->SetFrom("no-reply@bence-rewards.co.uk", 'Bence Rewards Booking');
+        $Cmail->AddAddress($user['email']);
+        $Cmail->Subject  = 'Bence Rewards Booking';
+        $Cmail->Body     = $customerMessage;
+        $Cmail->WordWrap = 78;
+
+        $send = 'false';
+        if ($mail->Send() && $Cmail->Send()) {
+            $send = 'true';
+        }
+
+        if (!empty($get['uid']) && $_SESSION['access'] > 1) {
+            return $response->withStatus(200)->withHeader('Location', '/account?uid=' . $get['uid'] . '&promo=' . $promoId . '&success=' . $send);
+        }
+        return $response->withStatus(200)->withHeader('Location', '/account?promo=' . $promoId . '&success=' . $send);
+    }
+    return $response->withStatus(200)->withHeader('Location', '/account');
 });
 
 $app->get('/account/update[/]', function ($request, $response, $args) {

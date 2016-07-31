@@ -14,9 +14,17 @@ $user = $data['user'];
     <div class="row">
         <div class="col-xs-12">
             <h2>Welcome, <?php echo $_SESSION['name'] ?>!</h2>
+
+            <?php if (isset($data['selectedPromo']) && is_array($data['selectedPromo'])) {
+                echo "<p><strong>" . $data['selectedPromo']['title'] . " booked successfully</strong></p>";
+            } else if (isset($data['selectedPromo'])) {
+                echo "<p>Booking failed, please <a href='/account/promotions/" . $data['selectedPromo'] . "'>try again</a></p>";
+            } ?>
+
             <?php if ($_SESSION['id'] !== $user['id']) {
                 echo "<p>You are viewing " . $user['name'] . "'s profile logged in as " . $_SESSION['name'] . ".</p>";
             } ?>
+
         </div>
     </div>
 

@@ -80,6 +80,7 @@ class User
         $query = $this->db->prepare("
                 SELECT * FROM users
                   LEFT JOIN regions ON users.region=regions.r_id
+                  LEFT JOIN `promotions2015` ON `users`.`promo`=`promotions2015`.`id`
                   WHERE users.email = '$email'
                     AND users.password = '$hash';
         ");
@@ -89,8 +90,9 @@ class User
 
     public function getUserWithId($uid) {
         $query = $this->db->prepare("
-                SELECT * FROM users
-                  LEFT JOIN regions ON users.region=regions.r_id
+                SELECT *, `users`.`id` AS 'id' FROM `users`
+                  LEFT JOIN regions ON `users`.`region`=`regions`.`r_id`
+                  LEFT JOIN `promotions2015` ON `users`.`promo`=`promotions2015`.`id`
                   WHERE users.id = '$uid';
         ");
         $query->execute();
