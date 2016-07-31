@@ -132,6 +132,17 @@ $app->get('/account[/]', function ($request, $response, $args) {
     return $this->renderer->render($response, 'account.phtml', $args);
 });
 
+$app->get('/account/promotions/{pid}', function ($request, $response, $args) {
+    $promoId = $args['pid'];
+    $promo = new \Bence\Promotions($this->db);
+    $args['promo'] = $promo->getPromotionById($promoId);
+    // @todo: has the user unlocked this promo? if not redirect to account page
+    // @todo: breadcrumbs needs the user trail
+    $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/promotions/' . $promoId => $args['promo']['title']];
+
+    return $this->renderer->render($response, 'promos.phtml', $args);
+});
+
 $app->get('/account/update[/]', function ($request, $response, $args) {
     $args['loggedIn'] = $_SESSION['loggedIn'];
     $args['breadcrumbs'] = ['/'=>'Home', '/account'=>'Account', '/account/update'=>'Update'];

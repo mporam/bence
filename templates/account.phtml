@@ -163,10 +163,12 @@ $user = $data['user'];
                     </div>
                 <?php } ?>
                 <div class="col-md-4">
-                    <div class="feature-box"
-                         style="background-image: url('<?php echo $promo['thumb'] ?>');"> <?php // @todo display if tier is locked ?>
-                        <h3><?php echo $promo['title']; ?></h3>
-                    </div>
+                    <a href="/account/promotions/<?php echo $promo['id'] ?>">
+                        <div class="feature-box"
+                             style="background-image: url('<?php echo $promo['thumb'] ?>');"> <?php // @todo display if tier is locked ?>
+                            <h3><?php echo $promo['title']; ?></h3>
+                        </div>
+                    </a>
                 </div>
             <?php } ?>
         </div>
