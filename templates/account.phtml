@@ -152,7 +152,7 @@ $user = $data['user'];
         $tiers = $data['tiers'];
         ?>
         <div class="row">
-            <div class="col-xs-12 title">
+            <div class="col-xs-12 title" id="rewards">
                 <h4>Rewards</h4>
             </div>
             <?php
@@ -165,9 +165,13 @@ $user = $data['user'];
                     </div>
                 <?php } ?>
                 <div class="col-xs-12 col-md-4">
-                    <a href="/account/promotions/<?php echo $promo['id'];
-                    if ($_SESSION['id'] !== $user['id']) {
-                        echo "/?uid=" . $user['id'];
+                    <a href="<?php
+                    if ($tiers[$promo['tier']]) { ?>/account/promotions/<?php echo $promo['id'];
+                        if ($_SESSION['id'] !== $user['id']) {
+                            echo "/?uid=" . $user['id'];
+                        }
+                    } else {
+                        echo "#rewards";
                     } ?>">
                         <div class="feature-box"
                              style="background-image: url('<?php echo $promo['thumb'] ?>');">
