@@ -37,7 +37,7 @@
         <?php
         foreach($data['promos'] as $promo) { ?>
             <div class="col-md-4">
-                <div class="feature-box">
+                <div class="feature-box" style="background-image: url('<?php echo $promo['thumb']; ?>');">
                     <h3><?php echo $promo['title']; ?></h3>
                 </div>
             </div>
