@@ -6,6 +6,7 @@
 $app->get('/', function ($request, $response, $args) {
     $promotions = new \Bence\Promotions($this->db);
     $args['promos'] = $promotions->getPromotions(3);
+    $args['loggedIn'] = $_SESSION['loggedIn'];
 
     return $this->renderer->render($response, 'index.phtml', $args);
 });
@@ -18,6 +19,56 @@ $app->get('/login[/]', function ($request, $response, $args) {
 
     $args['breadcrumbs'] = ['/' => 'Home', '/login' => 'Login'];
     return $this->renderer->render($response, 'login.phtml', $args);
+});
+
+$app->get('/terms[/]', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/terms' => 'Terms and Conditions',
+    ];
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
+    return $this->renderer->render($response, 'footer_pages/terms.phtml', $args);
+});
+
+$app->get('/access[/]', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/access' => 'Access Statement',
+    ];
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
+    return $this->renderer->render($response, 'footer_pages/access.phtml', $args);
+});
+
+$app->get('/conditions[/]', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/conditions' => 'Conditions of Use',
+    ];
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
+    return $this->renderer->render($response, 'footer_pages/conditions.phtml', $args);
+});
+
+$app->get('/contact[/]', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/contact' => 'Contact Us',
+    ];
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
+    return $this->renderer->render($response, 'footer_pages/contact.phtml', $args);
+});
+
+$app->get('/privacy[/]', function ($request, $response, $args) {
+    $args['breadcrumbs'] = [
+        '/' => 'Home',
+        '/privacy' => 'Privacy Policy',
+    ];
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
+    return $this->renderer->render($response, 'footer_pages/privacy.phtml', $args);
 });
 
 
@@ -150,6 +201,7 @@ $app->get('/account/promotions/{pid}[/]', function ($request, $response, $args) 
     $breadcrumbs = new \Bence\Breadcrumbs();
 
     $args['promo'] = $promo->getPromotionById($promoId);
+    $args['loggedIn'] = $_SESSION['loggedIn'];
 
     $get = $request->getQueryParams();
 
@@ -174,6 +226,7 @@ $app->get('/account/book/{pid}[/]', function ($request, $response, $args) {
     $promoId = $args['pid'];
     $promotions = new \Bence\Promotions($this->db);
     $users = new \Bence\User($this->db);
+    $args['loggedIn'] = $_SESSION['loggedIn'];
 
     $get = $request->getQueryParams();
     $uid = $_SESSION['id'];
@@ -291,6 +344,8 @@ $app->post('/account/update[/]', function ($request, $response, $args) {
 $app->get('/account/notifications[/]', function ($request, $response, $args) {
     $args['breadcrumbs'] = ['/' => 'Home', '/account' => 'Account', '/account/notifications' => 'Notifications'];
     $args['db'] = $this->db;
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
     return $this->renderer->render($response, 'notifications.phtml', $args);
 });
 
@@ -302,6 +357,8 @@ $app->post('/account/notifications/email[/]', function ($request, $response, $ar
         '/account/notifications/email' => 'Email'
     ];
     $args['db'] = $this->db;
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
     return $this->renderer->render($response, 'email.phtml', $args);
 });
 
@@ -313,6 +370,8 @@ $app->post('/account/notifications/send[/]', function ($request, $response, $arg
         '/account/notifications/send' => 'Sending Emails'
     ];
     $args['db'] = $this->db;
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
     return $this->renderer->render($response, 'send.phtml', $args);
 });
 
@@ -324,6 +383,8 @@ $app->get('/account/notifications/complete[/]', function ($request, $response, $
         '/account/notifications/send' => 'Emails Sent!'
     ];
     $args['db'] = $this->db;
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
     return $this->renderer->render($response, 'complete.phtml', $args);
 });
 
@@ -334,6 +395,8 @@ $app->get('/account/import[/]', function ($request, $response, $args) {
         '/account/import' => 'Import Data'
     ];
     $args['db'] = $this->db;
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
     return $this->renderer->render($response, 'import.phtml', $args);
 });
 
@@ -345,6 +408,8 @@ $app->post('/account/import/map[/]', function ($request, $response, $args) {
         '/account/import/map' => 'Map Fields'
     ];
     $args['db'] = $this->db;
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
     return $this->renderer->render($response, 'map.phtml', $args);
 });
 
@@ -356,6 +421,8 @@ $app->post('/account/import/complete[/]', function ($request, $response, $args) 
         '/account/import/complete' => 'Completed Import'
     ];
     $args['db'] = $this->db;
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
     return $this->renderer->render($response, 'import_complete.phtml', $args);
 });
 
@@ -366,5 +433,7 @@ $app->get('/account/users', function ($request, $response, $args) {
         '/account/users' => 'User List'
     ];
     $args['db'] = $this->db;
+    $args['loggedIn'] = $_SESSION['loggedIn'];
+
     return $this->renderer->render($response, 'find_user_list.phtml', $args);
 });
