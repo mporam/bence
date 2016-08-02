@@ -166,36 +166,38 @@ $user = $data['user'];
             <?php
             $tier = 0;
             foreach ($data['promos'] as $promo) {
-                if ($promo['tier'] > $tier) {
-                    $tier = $promo['tier']; ?>
-                    <div class="col-xs-12">
-                        <h4>Tier <?php echo $promo['tier']; ?></h4>
-                    </div>
-                <?php } ?>
-                <div class="col-xs-12 col-md-4">
-                    <a href="<?php
-                    if ($tiers[$promo['tier']]) { ?>/account/promotions/<?php echo $promo['id'];
-                        if ($_SESSION['id'] !== $user['id']) {
-                            echo "/?uid=" . $user['id'];
-                        }
-                    } else {
-                        echo "#rewards";
-                    } ?>">
-                        <div class="feature-box"
-                             style="background-image: url('<?php echo $promo['thumb'] ?>');">
-                            <?php
-                            if (!$tiers[$promo['tier']]) { ?>
-                                <div class="glyph-house">
-                                    <span class='glyphicon glyphicon-lock'></span>
-                                </div>
-                                <?php
-                            }
-                            ?>
-                            <h3><?php echo $promo['title']; ?></h3>
+                if (!empty($promo['title'])) {
+                    if ($promo['tier'] > $tier) {
+                        $tier = $promo['tier']; ?>
+                        <div class="col-xs-12">
+                            <h4>Tier <?php echo $promo['tier']; ?></h4>
                         </div>
-                    </a>
-                </div>
-            <?php } ?>
+                    <?php } ?>
+                    <div class="col-xs-12 col-md-4">
+                        <a href="<?php
+                        if (isset($tiers[$promo['tier']])) { ?>/account/promotions/<?php echo $promo['id'];
+                            if ($_SESSION['id'] !== $user['id']) {
+                                echo "/?uid=" . $user['id'];
+                            }
+                        } else {
+                            echo "#rewards";
+                        } ?>">
+                            <div class="feature-box"
+                                 style="background-image: url('<?php echo $promo['thumb'] ?>');">
+                                <?php
+                                if (!isset($tiers[$promo['tier']])) { ?>
+                                    <div class="glyph-house">
+                                        <span class='glyphicon glyphicon-lock'></span>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                                <h3><?php echo $promo['title']; ?></h3>
+                            </div>
+                        </a>
+                    </div>
+                <?php }
+            } ?>
         </div>
     <?php } ?>
 

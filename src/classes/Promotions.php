@@ -28,7 +28,8 @@ class Promotions
             SELECT * FROM `userTiers`
                 LEFT JOIN `promotions2015`
                     ON `userTiers`.`tier` = `promotions2015`.`tier`
-                WHERE `userTiers`.`uid` = $uid;
+                WHERE `userTiers`.`uid` = $uid
+                ORDER BY `promotions2015`.`tier` ASC;
         ");
 
         $query->execute();
