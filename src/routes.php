@@ -86,6 +86,9 @@ $app->post('/login/reset[/]', function ($request, $response, $args) {
 });
 
 $app->get('/account[/]', function ($request, $response, $args) {
+    if (!$_SESSION['loggedIn'] || empty($_SESSION['loggedIn'])) {
+        return $response->withStatus(200)->withHeader('Location', '/');
+    }
     $user = new \Bence\User($this->db);
     $stat = new \Bence\Stat($this->db, $user->getTotalUsers());
     $breadcrumbs = new \Bence\Breadcrumbs();
